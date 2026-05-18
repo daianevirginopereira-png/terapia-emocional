@@ -280,6 +280,17 @@ export default function MentalBlocksDashboard() {
     let mensagem = `🌸 *ANAMNESE TERAPÊUTICA - MISS. DAIANE* 🌸\n\n`;
 
     // =========================
+    // DADOS PESSOAIS
+    // =========================
+    mensagem += `👤 *DADOS PESSOAIS*\n\n`;
+    mensagem += `*Nome:* ${formData.nome || "Não informado"}\n`;
+    mensagem += `*Idade:* ${formData.idade || "Não informada"}\n`;
+    mensagem += `*Telefone:* ${formData.telefone || "Não informado"}\n`;
+    mensagem += `*Cidade:* ${formData.cidade || "Não informada"}\n`;
+    mensagem += `*Estado civil:* ${formData.estadoCivil || "Não informado"}\n`;
+    mensagem += `*Profissão:* ${formData.profissao || "Não informada"}\n\n`;
+
+    // =========================
     // RESPOSTAS DAS PERGUNTAS
     // =========================
 
@@ -323,7 +334,7 @@ export default function MentalBlocksDashboard() {
         {/* LOGO ORIGINAL */}
         <div className="flex justify-center items-center mt-10 mb-[30px]">
           <img
-            src="/logo.png"
+            src="https://raw.githubusercontent.com/virginiostudiodesign/TERAPIA-EMOCIONAL/main/logo.png"
             alt="Miss Daiane"
             className="w-[420px] max-w-[90%] object-contain"
           />
@@ -451,7 +462,7 @@ export default function MentalBlocksDashboard() {
               </div>
 
               <div>
-                <label className="block mb-2 text-[#8D6E63] font-semibold">WhatsApp</label>
+                <label className="block mb-2 text-[#8D6E63] font-semibold">Telefone</label>
                 <input
                   type="tel"
                   placeholder="(00) 00000-0000"
