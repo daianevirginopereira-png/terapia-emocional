@@ -323,7 +323,7 @@ export default function MentalBlocksDashboard() {
         {/* LOGO ORIGINAL */}
         <div className="flex justify-center items-center mt-10 mb-[30px]">
           <img
-            src="https://raw.githubusercontent.com/virginiostudiodesign/TERAPIA-EMOCIONAL/main/logo.png"
+            src="/logo.png"
             alt="Miss Daiane"
             className="w-[420px] max-w-[90%] object-contain"
           />
