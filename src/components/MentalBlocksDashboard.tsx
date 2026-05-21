@@ -12,7 +12,8 @@ import {
   ChevronLeft,
   CheckCircle2,
   Target,
-  Map
+  Map,
+  MessageCircle
 } from 'lucide-react';
 
 interface Emotion {
@@ -82,7 +83,7 @@ export default function MentalBlocksDashboard() {
 
   const etapasAnamnese = [
     {
-      titulo: "Fase 01 – Vida Pessoal",
+      titulo: "Fase o1 – Vida Pessoal",
       perguntas: [
         "É casado/a, solteiro/a ou divorciado/a?",
         "Se é divorciado/a, por qual motivo e como se sente?",
@@ -124,7 +125,7 @@ export default function MentalBlocksDashboard() {
       ]
     },
     {
-      titulo: "Fase 02 – Mental",
+      titulo: "Fase o2 – Mental",
       perguntas: [
         "Qual o seu nível de stress? (Alto, Médio ou Baixo)",
         "Atualmente está tomando alguma medicação? (Sim ou Não) Qual?",
@@ -149,7 +150,7 @@ export default function MentalBlocksDashboard() {
       ]
     },
     {
-      titulo: "Fase 03 – Infância",
+      titulo: "Fase o3 – Infância",
       perguntas: [
         "Você foi criado pelos pais? (Sim ou Não)",
         "Como é sua relação com seu Pai?",
@@ -186,7 +187,7 @@ export default function MentalBlocksDashboard() {
       ]
     },
     {
-      titulo: "Fase 04 – Emocional",
+      titulo: "Fase o4 – Emocional",
       perguntas: [
         "Quais são seus maiores medos hoje?",
         "O que você pensa a seu respeito?",
@@ -282,52 +283,33 @@ export default function MentalBlocksDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCF8F5] p-6 md:p-12 font-sans selection:bg-[#B08A78]/20 relative overflow-hidden">
+    <div className="min-h-screen bg-[#FAF6F2] p-6 md:p-12 font-sans selection:bg-[#B48C7A]/15 relative overflow-hidden">
       {/* Premium paper texture overlay */}
-      <div className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
+      <div className="absolute inset-0 opacity-[0.025] pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
       
-      <div className="max-w-5xl mx-auto space-y-16 relative z-10">
+      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
         
         {/* Header content card - BRANDING */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-[3rem] shadow-sm p-12 flex flex-col items-center gap-10 border border-[#F1E4DC] overflow-hidden relative"
+          className="py-16 flex flex-col items-center gap-4 text-center select-none"
         >
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#FCF8F5] rounded-bl-full opacity-50" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FCF8F5] rounded-tr-full opacity-50" />
-
-          
-          <div className="flex flex-col items-center text-center space-y-8 relative w-full pt-4">
-            <h1 className="text-[#8B6D5C] text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.1em] leading-[1.3] max-w-3xl font-sans">
-              Protocolo de Avaliação Terapêutica
+          <div className="flex flex-col items-center">
+            <h1 className="text-[#766255] text-[20px] sm:text-[30px] md:text-[38px] font-bold font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] leading-tight max-w-4xl">
+              PROTOCOLO DE AVALIAÇÃO
             </h1>
-            
-            <div className="w-full max-w-3xl h-[1px] bg-[#F1E4DC]/70 my-4" />
-          </div>
-          
-          <div className="w-full flex flex-col sm:flex-row items-center gap-6 justify-center px-4 z-10">
-            <div className="flex items-center gap-5 bg-white p-5 px-8 rounded-[1.75rem] border border-[#F1E4DC]/80 shadow-[0_4px_15px_-3px_rgba(139,112,98,0.03)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_25px_-5px_rgba(139,112,98,0.06)] min-w-[260px] md:min-w-[280px]">
-              <div className="w-12 h-12 bg-[#B08A78]/5 rounded-full flex items-center justify-center text-[#B08A78] shrink-0">
-                <Activity size={20} strokeWidth={1.5} />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80">Documento</p>
-                <p className="text-[14px] font-semibold text-[#8B6D5C]">Avaliação Individualizada</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-5 bg-white p-5 px-8 rounded-[1.75rem] border border-[#F1E4DC]/80 shadow-[0_4px_15px_-3px_rgba(139,112,98,0.03)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_25px_-5px_rgba(139,112,98,0.06)] min-w-[260px] md:min-w-[280px]">
-              <div className="w-12 h-12 bg-[#B08A78]/5 rounded-full flex items-center justify-center text-[#B08A78] shrink-0">
-                <User size={20} strokeWidth={1.5} />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80">Responsável</p>
-                <p className="text-[14px] font-semibold text-[#8B6D5C]">Terapeuta Miss. Daiane</p>
-              </div>
+            <div className="mt-3 inline-block bg-[#EFE5DF] px-5 py-1.5">
+              <span className="text-[#766255] text-[18px] sm:text-[26px] md:text-[32px] font-bold font-sans uppercase tracking-[0.22em] block leading-none">
+                TERAPÊUTICA
+              </span>
             </div>
           </div>
+          <p className="text-[10px] font-semibold tracking-[0.18em] text-[#A08C80] uppercase mt-2">
+            Miss. Daiane • Terapeuta Emocional
+          </p>
+          <div className="w-16 h-[1.5px] bg-[#EAE1D5] mt-6" />
         </motion.div>
 
         {/* Main Content Sections */}
@@ -336,68 +318,67 @@ export default function MentalBlocksDashboard() {
           {/* =========================
             IDENTIFICAÇÃO INICIAL
           ========================= */}
-          <div className="bg-white rounded-[45px] p-12 md:p-16 shadow-[0_10px_50px_-12px_rgba(139,109,92,0.08)] border border-[#F1E4DC]/40 relative overflow-hidden mb-12">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#B08A78]/20 to-transparent" />
-            
-            <h2 className="text-[#8B6D5C] text-3xl font-display font-light italic tracking-wide mb-3">
-              Identificação
-            </h2>
-
-            <p className="text-[#B08A78] font-sans font-light uppercase tracking-[0.4em] text-[10px] mb-12 opacity-80">
-              Seus dados fundamentais para o acompanhamento
-            </p>
+          <div className="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] border border-[#EAE1D5] mb-12 relative overflow-hidden">
+            <div className="flex justify-between items-baseline mb-8 pb-6 border-b border-[#EAE1D5]/60">
+              <h2 className="text-[#766255] text-xl sm:text-2xl font-bold font-sans uppercase tracking-[0.08em]">
+                Dados Pessoais
+              </h2>
+            </div>
 
             <style>{`
               .terapia-input {
                 width: 100%;
-                padding: 20px 28px;
-                border-radius: 35px;
-                border: 1px solid #F1E4DC;
-                background: rgba(252, 248, 245, 0.3);
+                padding: 16px 24px;
+                border-radius: 20px;
+                border: 1px solid #E5D3C5;
+                background: #FFFFFF;
                 font-size: 15px;
                 outline: none;
-                color: #8B6D5C;
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                color: #766255;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 font-family: inherit;
               }
+              .terapia-input::placeholder {
+                color: #C7B4A6;
+                opacity: 0.65;
+              }
               .terapia-input:focus {
-                border-color: #B08A78;
-                background: #FFF;
-                box-shadow: 0 15px 35px -12px rgba(176, 138, 120, 0.15);
+                border-color: #B48C7A;
+                background: #FFFFFF;
+                box-shadow: 0 10px 25px -10px rgba(180, 140, 122, 0.25);
               }
               .terapia-label {
                 display: block;
-                margin-bottom: 14px;
-                color: #8B6D5C;
-                font-weight: 500;
-                font-size: 10px;
+                margin-bottom: 9px;
+                color: #766255;
+                font-weight: 700;
+                font-size: 11px;
                 text-transform: uppercase;
-                letter-spacing: 0.3em;
+                letter-spacing: 0.12em;
                 font-family: inherit;
-                opacity: 0.8;
               }
               .terapia-btn-binary {
                 padding: 14px 36px;
                 border-radius: 50px;
-                border: 1px solid #F1E4DC;
-                background: transparent;
-                color: #B08A78;
-                font-weight: 500;
+                border: 1px solid #EAE1D5;
+                background: #FFFFFF;
+                color: #B48C7A;
+                font-weight: 700;
                 font-size: 11px;
                 text-transform: uppercase;
-                letter-spacing: 0.15em;
+                letter-spacing: 0.12em;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 cursor: pointer;
               }
               .terapia-btn-binary:hover {
-                border-color: #B08A78;
-                background: rgba(176, 138, 120, 0.05);
+                border-color: #B48C7A;
+                background: rgba(180, 140, 122, 0.05);
               }
               .terapia-btn-binary.active {
-                background: #B08A78;
-                border-color: #B08A78;
+                background: #B48C7A;
+                border-color: #B48C7A;
                 color: white;
-                box-shadow: 0 10px 30px -8px rgba(176, 138, 120, 0.5);
+                box-shadow: 0 10px 30px -8px rgba(180, 140, 122, 0.4);
               }
             `}</style>
 
@@ -407,7 +388,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Nome Completo</label>
                 <input
                   type="text"
-                  placeholder="Seu nome"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.nome}
                   onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
@@ -420,7 +401,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Data de Nascimento</label>
                 <input
                   type="text"
-                  placeholder="DD/MM/AAAA"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.nascimento}
                   onChange={(e) => setFormData({ ...formData, nascimento: e.target.value })}
@@ -430,7 +411,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Estado Civil</label>
                 <input
                   type="text"
-                  placeholder="Seu estado civil"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.estadoCivil}
                   onChange={(e) => setFormData({ ...formData, estadoCivil: e.target.value })}
@@ -443,7 +424,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Cidade</label>
                 <input
                   type="text"
-                  placeholder="Sua cidade"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.cidade}
                   onChange={(e) => setFormData({ ...formData, cidade: e.target.value })}
@@ -453,7 +434,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">UF</label>
                 <input
                   type="text"
-                  placeholder="Estado"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.uf}
                   onChange={(e) => setFormData({ ...formData, uf: e.target.value })}
@@ -466,7 +447,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Profissão</label>
                 <input
                   type="text"
-                  placeholder="Sua profissão"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.profissao}
                   onChange={(e) => setFormData({ ...formData, profissao: e.target.value })}
@@ -476,7 +457,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Empresa</label>
                 <input
                   type="text"
-                  placeholder="Onde trabalha"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.empresa}
                   onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
@@ -489,7 +470,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Atividade</label>
                 <input
                   type="text"
-                  placeholder="O que faz"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.atividade}
                   onChange={(e) => setFormData({ ...formData, atividade: e.target.value })}
@@ -499,7 +480,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Cargo</label>
                 <input
                   type="text"
-                  placeholder="Seu cargo"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.cargo}
                   onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
@@ -512,7 +493,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Religião</label>
                 <input
                   type="text"
-                  placeholder="Sua religião"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.religiao}
                   onChange={(e) => setFormData({ ...formData, religiao: e.target.value })}
@@ -522,7 +503,7 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Escolaridade</label>
                 <input
                   type="text"
-                  placeholder="Grau de instrução"
+                  placeholder="Digite aqui..."
                   className="terapia-input"
                   value={formData.escolaridade}
                   onChange={(e) => setFormData({ ...formData, escolaridade: e.target.value })}
@@ -535,9 +516,9 @@ export default function MentalBlocksDashboard() {
                 <label className="terapia-label">Queixa Principal – O que te trouxe até aqui?</label>
                 <textarea
                   rows={4}
-                  placeholder="Descreva brevemente..."
+                  placeholder="Sua resposta detalhada..."
                   className="terapia-input"
-                  style={{ borderRadius: "25px", resize: "none" }}
+                  style={{ borderRadius: "20px", resize: "none" }}
                   value={formData.queixaPrincipal}
                   onChange={(e) => setFormData({ ...formData, queixaPrincipal: e.target.value })}
                 />
@@ -554,13 +535,13 @@ export default function MentalBlocksDashboard() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-[40px] p-10 md:p-14 mb-16 shadow-sm border border-[#F1E4DC]"
+              className="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] border border-[#EAE1D5] mb-12 relative overflow-hidden"
             >
-              <h2
-                className="text-[#8B6D5C] text-2xl md:text-3xl font-display font-semibold uppercase tracking-widest mb-10 text-center"
-              >
-                {etapa.titulo}
-              </h2>
+              <div className="flex justify-between items-baseline mb-8 pb-6 border-b border-[#EAE1D5]/60">
+                <h2 className="text-[#766255] text-xl sm:text-2xl font-bold font-sans uppercase tracking-[0.08em]">
+                  {etapa.titulo}
+                </h2>
+              </div>
 
               <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
                 {etapa.perguntas.map((perguntaOriginal, perguntaIndex) => {
@@ -626,7 +607,7 @@ export default function MentalBlocksDashboard() {
 
                   return (
                     <div key={perguntaIndex} className={isFullWidth ? "col-span-full" : ""}>
-                      <label className="terapia-label mb-4 text-base leading-relaxed block">
+                      <label className="text-[#766255] font-bold text-xs sm:text-[13px] tracking-[0.08em] uppercase block mb-4 leading-relaxed">
                         {label}
                       </label>
 
@@ -649,17 +630,13 @@ export default function MentalBlocksDashboard() {
                           </div>
 
                           {shouldShowDetailInput && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="mt-2"
-                            >
-                              <label className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80 block mb-2">
+                            <div className="mt-2">
+                              <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#766255] block mb-2 opacity-95">
                                 {finalDetailQuestion}
                               </label>
                               <textarea
                                 rows={2}
-                                placeholder="Digite o detalhe aqui..."
+                                placeholder="Sua resposta detalhada..."
                                 value={respostas[perguntaOriginal + "_detalhe"] || ""}
                                 onChange={(e) =>
                                   setRespostas({
@@ -670,13 +647,13 @@ export default function MentalBlocksDashboard() {
                                 className="terapia-input"
                                 style={{ borderRadius: "20px", resize: "none" }}
                               />
-                            </motion.div>
+                            </div>
                           )}
                         </div>
                       ) : (
                         <textarea
-                          rows={label.includes("?") && !label.startsWith("Qual") ? 2 : 1}
-                          placeholder="Digite aqui..."
+                          rows={label.length > 50 ? 3 : 2}
+                          placeholder="Sua resposta detalhada..."
                           value={respostas[perguntaOriginal] || ""}
                           onChange={(e) =>
                             setRespostas({
@@ -685,7 +662,7 @@ export default function MentalBlocksDashboard() {
                             })
                           }
                           className="terapia-input"
-                          style={{ borderRadius: "25px", resize: "none" }}
+                          style={{ borderRadius: "20px", resize: "none" }}
                         />
                       )}
                     </div>
@@ -699,29 +676,28 @@ export default function MentalBlocksDashboard() {
           {/* =========================
             MAPA EMOCIONAL COMPLETO
           ========================= */}
-          <div className="bg-white rounded-[45px] p-12 md:p-16 shadow-[0_10px_50px_-12px_rgba(139,109,92,0.06)] border border-[#F1E4DC]/40 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-[#FCF8F5] rounded-bl-full opacity-50" />
-            
-            <h2 className="text-[#8B6D5C] text-3xl font-display font-light italic tracking-wide mb-3 relative z-10">
-              Mapa Emocional
-            </h2>
-
-            <p className="text-[#B08A78] font-sans font-light uppercase tracking-[0.4em] text-[10px] mb-14 opacity-80 relative z-10">
-              Autoavaliação da intensidade afetiva
-            </p>
+          <div className="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] border border-[#EAE1D5] mb-12 relative overflow-hidden">
+            <div className="flex justify-between items-baseline mb-8 pb-6 border-b border-[#EAE1D5]/60">
+              <h2 className="text-[#766255] text-xl sm:text-2xl font-bold font-sans uppercase tracking-[0.08em]">
+                Mapa Emocional
+              </h2>
+              <span className="text-[#B48C7A] font-semibold text-[10px] tracking-[0.15em] uppercase">
+                {emocoes.length} Emoções
+              </span>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
               {emocoes.map((emocao) => (
                   <div
                     key={emocao}
-                    className="group bg-[#FCF8F5]/30 border border-[#F1E4DC]/60 rounded-3xl p-6 transition-all hover:bg-white hover:shadow-[0_15px_35px_-10px_rgba(176,138,120,0.1)] hover:border-[#B08A78]/30"
+                    className="group bg-[#FAF6F2]/50 border border-[#EAE1D5]/40 rounded-2xl p-5 transition-all hover:bg-white hover:shadow-[0_15px_35px_-10px_rgba(180,140,122,0.1)] hover:border-[#B48C7A]/30"
                   >
-                    <div className="flex justify-between items-center mb-5">
-                      <span className="text-[#8B6D5C] font-sans font-medium text-[11px] uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-[#766255] font-sans font-bold text-[11px] uppercase tracking-[0.14em] opacity-90 group-hover:opacity-100 transition-opacity">
                         {emocao}
                       </span>
 
-                      <span className="bg-[#B08A78]/5 text-[#B08A78] px-3 py-1 rounded-lg font-display italic text-sm">
+                      <span className="bg-[#B48C7A]/5 text-[#B48C7A] px-3 py-1 rounded-lg font-mono font-semibold text-xs transition-colors group-hover:bg-[#B48C7A]/10">
                         {emocional?.[emocao] || 0}
                       </span>
                     </div>
@@ -737,7 +713,7 @@ export default function MentalBlocksDashboard() {
                           [emocao]: Number(e.target.value)
                         })
                       }
-                      className="w-full h-1.5 bg-[#F1E4DC] rounded-full appearance-none cursor-pointer accent-[#B08A78]"
+                      className="w-full h-1.5 bg-[#EAE1D5] rounded-full appearance-none cursor-pointer accent-[#B48C7A]"
                     />
                   </div>
               ))}
@@ -747,52 +723,163 @@ export default function MentalBlocksDashboard() {
           {/* =========================
             FINALIZAÇÃO / ACOLHIMENTO
           ========================= */}
-          <div className="bg-[#FCF8F5] rounded-[50px] p-16 md:p-24 text-center relative overflow-hidden text-[#8B6D5C] border border-[#F1E4DC] shadow-[0_15px_50px_-15px_rgba(139,112,98,0.08)]">
-            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]" />
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#B08A78]/5 rounded-full blur-3xl" />
-            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#B08A78]/10 rounded-full blur-3xl" />
+          <div className="bg-[#F5ECE3]/60 rounded-[2.5rem] p-10 md:p-16 text-center relative overflow-hidden text-[#766255] border border-[#EAE1D5] shadow-[0_15px_45px_-15px_rgba(118,98,85,0.03)]">
+            <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]" />
+            <motion.div 
+              animate={{ 
+                x: [-12, 12, -12],
+                y: [-8, 12, -8],
+                scale: [1, 1.15, 1],
+                opacity: [0.6, 0.9, 0.6]
+              }}
+              transition={{
+                duration: 14,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute -top-24 -left-24 w-64 h-64 bg-[#B48C7A]/5 rounded-full blur-3xl" 
+            />
+            <motion.div 
+              animate={{ 
+                x: [12, -12, 12],
+                y: [8, -12, 8],
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5]
+              }}
+              transition={{
+                duration: 16,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.5
+              }}
+              className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#B48C7A]/5 rounded-full blur-3xl" 
+            />
 
-            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
-              <div className="w-16 h-px bg-[#B08A78]/25 mx-auto" />
+            <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+              <div className="w-16 h-px bg-[#B48C7A]/25 mx-auto" />
               
-              <h2 className="text-[#8B6D5C] text-4xl md:text-5xl font-display font-light italic tracking-tight leading-tight">
+              <h2 className="text-[#766255] text-3xl md:text-4xl font-display font-light italic uppercase tracking-wide leading-tight">
                 Espaço de Acolhimento
               </h2>
 
-              <p className="text-[#8B6D5C]/90 text-xl md:text-2xl leading-relaxed font-light italic font-serif">
+              <p className="text-[#766255]/85 text-lg md:text-xl leading-relaxed font-light italic font-serif">
                 “Muitas vezes os traumas silenciosos deixam marcas profundas,
                 mas nenhuma dor define quem você é. <br className="hidden md:block" />
                 Existe cura para aquilo que por anos tentou sobreviver escondido dentro de você.”
               </p>
 
               <div className="space-y-4">
-                <p className="text-[#B08A78] font-sans font-medium text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
+                <p className="text-[#B48C7A] font-sans font-medium text-base md:text-lg leading-relaxed max-w-xl mx-auto">
                   “Porque sou eu que conheço os planos que tenho para vocês,
                   diz o Senhor, planos de fazê-los prosperar e não de lhes causar dano,
                   planos de dar-lhes esperança e um futuro.”
                 </p>
                 
-                <div className="text-[10px] text-[#B08A78] font-sans font-bold uppercase tracking-[0.5em] opacity-60">
+                <div className="text-[10px] text-[#B48C7A] font-sans font-bold uppercase tracking-wider opacity-60">
                   Jeremias 29:11
                 </div>
               </div>
 
-              <div className="w-16 h-px bg-[#B08A78]/25 mx-auto" />
+              <div className="w-16 h-px bg-[#B48C7A]/25 mx-auto" />
             </div>
           </div>
 
           {/* =========================
-            BOTÃO FINAL
+            BOTÃO FINAL (Pill-shaped, beautifully animated with glowing waves)
           ========================= */}
-          <div className="pb-24">
-              <button
+          <div className="pb-24 max-w-xl mx-auto relative flex flex-col items-center">
+              {/* Harmonic Breathing Aura Rings behind the button representing healing energy flow */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
+                <motion.div
+                  className="absolute w-64 h-24 rounded-full bg-[#B48C7A]/20 blur-md"
+                  animate={{
+                    scale: [1, 1.25, 1],
+                    opacity: [0.6, 0, 0.6]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  className="absolute w-72 h-32 rounded-full bg-[#B48C7A]/10 blur-xl"
+                  animate={{
+                    scale: [1, 1.4, 1],
+                    opacity: [0.4, 0, 0.4]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1.5
+                  }}
+                />
+              </div>
+
+              <motion.button
                 onClick={enviarWhatsApp}
-                className="w-full mt-12 p-8 rounded-[40px] bg-[#B08A78] text-white text-base md:text-lg font-sans font-medium uppercase tracking-[0.3em] cursor-pointer shadow-[0_15px_45px_rgba(176,138,120,0.25)] hover:bg-[#A37B67] transition-all hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-4"
+                className="w-full mt-12 py-5 px-10 rounded-full bg-[#B48C7A] text-white text-sm md:text-base font-sans font-bold uppercase tracking-wide cursor-pointer flex items-center justify-center gap-3 select-none relative overflow-hidden z-10"
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: "#A07865",
+                  y: -3,
+                  boxShadow: "0px 20px 40px rgba(160, 120, 101, 0.45)"
+                }}
+                whileTap={{ scale: 0.96 }}
+                animate={{
+                  y: [0, -4, 0],
+                  boxShadow: [
+                    "0px 12px 30px rgba(180, 140, 122, 0.3)",
+                    "0px 18px 45px rgba(180, 140, 122, 0.5)",
+                    "0px 12px 30px rgba(180, 140, 122, 0.3)"
+                  ]
+                }}
+                transition={{
+                  scale: { duration: 0.2 },
+                  y: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  },
+                  boxShadow: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                }}
               >
-                <div className="w-8 h-px bg-white/30 group-hover:w-12 transition-all" />
-                Finalizar e Enviar Avaliação
-                <div className="w-8 h-px bg-white/30 group-hover:w-12 transition-all" />
-              </button>
+                {/* Glowing laser/shimmer sweep animation */}
+                <motion.div 
+                  className="absolute top-0 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
+                  animate={{
+                    left: ["-100%", "200%"]
+                  }}
+                  transition={{
+                    duration: 2.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    repeatDelay: 1.2
+                  }}
+                  style={{ width: "40%" }}
+                />
+                
+                <motion.div
+                  animate={{ 
+                    rotate: [0, -12, 12, -12, 12, 0],
+                    scale: [1, 1.15, 1, 1.15, 1]
+                  }}
+                  transition={{ 
+                    duration: 2.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    repeatDelay: 3
+                  }}
+                >
+                  <MessageCircle className="w-5 h-5 md:w-6 md:h-6 shrink-0 text-white drop-shadow-[0_2px_5px_rgba(255,255,255,0.4)]" strokeWidth={2.5} />
+                </motion.div>
+                <span className="relative z-10 font-bold tracking-wider drop-shadow-sm">Enviar Resultados no WhatsApp</span>
+              </motion.button>
           </div>
         </div>
 
@@ -800,11 +887,11 @@ export default function MentalBlocksDashboard() {
 
           <footer className="max-w-6xl mx-auto mt-12 pb-16 text-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-px bg-[#B08A78]/20" />
-              <p className="text-[9px] md:text-[10px] font-sans font-light uppercase tracking-[0.8em] text-[#B08A78]/60">
+              <div className="w-12 h-px bg-[#B48C7A]/20" />
+              <p className="text-[9px] md:text-[10px] font-sans font-medium uppercase tracking-[0.15em] text-[#B48C7A]/70">
                 Miss. Daiane • Terapeuta Emocional • Protocolo de Avaliação
               </p>
-              <div className="w-12 h-px bg-[#B08A78]/20" />
+              <div className="w-12 h-px bg-[#B48C7A]/20" />
             </div>
           </footer>
 
@@ -817,21 +904,21 @@ export default function MentalBlocksDashboard() {
               width: 100%;
               height: 6px;
               cursor: pointer;
-              background: #F1E4DC;
+              background: #EAE1D5;
               border-radius: 10px;
             }
             input[type='range']:focus::-webkit-slider-runnable-track {
-              background: #EAD8CF;
+              background: #DCD0C4;
             }
             input[type='range']::-webkit-slider-thumb {
               height: 22px;
               width: 22px;
               border-radius: 50%;
-              background: #B08A78;
+              background: #B48C7A;
               cursor: pointer;
               -webkit-appearance: none;
               margin-top: -8px;
-              box-shadow: 0 4px 10px rgba(176, 138, 120, 0.3);
+              box-shadow: 0 4px 10px rgba(180, 140, 122, 0.3);
               border: 2px solid white;
             }
           `}</style>
