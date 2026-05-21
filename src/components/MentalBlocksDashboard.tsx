@@ -5,7 +5,14 @@ import {
   Activity, 
   Clipboard,
   BarChart3,
-  Save
+  Save,
+  BookOpen,
+  Brain,
+  ChevronRight,
+  ChevronLeft,
+  CheckCircle2,
+  Target,
+  Map
 } from 'lucide-react';
 
 interface Emotion {
@@ -77,11 +84,11 @@ export default function MentalBlocksDashboard() {
     {
       titulo: "Fase 01 – Vida Pessoal",
       perguntas: [
-        "É casada (o), solteira (o) ou divorciada (o)?",
-        "Se é divorciada (o), por qual motivo e como se sente?",
+        "É casado/a, solteiro/a ou divorciado/a?",
+        "Se é divorciado/a, por qual motivo e como se sente?",
         "Número de filhos:",
         "Como é o seu relacionamento com seus filhos?",
-        "Como você se sente em seu relacionamento com sua parceira (o)?",
+        "Como você se sente em seu relacionamento com seu/sua parceiro/a?",
         "Como você se sente em sua casa, dentro do contexto familiar?",
         "Como você se sente no seu trabalho?",
         "Você se sente pertencendo ao Contexto Familiar? (Sim ou Não)",
@@ -123,14 +130,14 @@ export default function MentalBlocksDashboard() {
         "Atualmente está tomando alguma medicação? (Sim ou Não) Qual?",
         "Algum trauma? (Sim ou Não) Qual?",
         "Já consultou algum tipo de psiquiatra ou psicólogo? (Sim ou Não)",
-        "Se sim, foi diagnosticada (o)? (Sim ou Não)",
+        "Se sim, foi diagnosticado/a? (Sim ou Não)",
         "Qual a quantidade de amigos que você tem?",
         "Qual seu passatempo preferido?",
         "Qual a principal a crença que as pessoas possuem em relação a você que mais se repete?",
         "Você se considera feliz? (Sim ou Não) Por quê?",
         "Se você pudesse mudar alguma coisa em você, no seu modo de ser, ou agir, ou no seu comportamento atual, o que mudaria?",
         "Defina o que é a vida em apenas uma frase",
-        "Quais são os tipos de pensamentos que você costuma alimentar em relação a si mesma (o), de uma maneira geral? (Positivos ou Negativos) Quais exatamente?",
+        "Quais são os tipos de pensamentos que você costuma alimentar em relação a si mesmo/a, de uma maneira geral? (Positivos ou Negativos) Quais exatamente?",
         "Em relação a sua aparência física? (Positivos ou Negativos) Quais exatamente?",
         "Em relação a sua competência profissional? (Positivos ou Negativos) Quais exatamente?",
         "Em relação a sua vida emocional? (Positivos ou Negativos) Quais exatamente?",
@@ -152,13 +159,13 @@ export default function MentalBlocksDashboard() {
         "Usavam bebidas ou drogas? (Sim ou Não)",
         "Como você descreveria o relacionamento entre seus pais? (Excelente, Muito Bom, Bom, Regular ou Péssimo) Por quê?",
         "Quais os aspectos deste relacionamento que se assemelham, ou se repetem em sua vida hoje?",
-        "Quais as características deste relacionamento, que você se mantém determinada (o) a não repetir? Por quê?",
+        "Quais as características deste relacionamento, que você se mantém determinado/a a não repetir? Por quê?",
         "Quanto ao relacionamento de seus pais responda: Qual a crença que você adquiriu em relação a relacionamentos?",
-        "Na infância, era obrigada (o) a fazer alguma coisa que lhe desagradava? (Sim ou Não)",
+        "Na infância, era obrigado/a a fazer alguma coisa que lhe desagradava? (Sim ou Não)",
         "Lembra-se de alguma coisa que o magoou muito na Infância? (Sim ou Não)",
         "Teve perdas familiares ou de amigos na Infância? (Sim ou Não)",
         "O que te faz sentir tristeza ao relembrar do passado?",
-        "Quando criança tinha medo de que?",
+        "Quando criança tinha medo of que?",
         "Dormia com a luz acesa ou apagada? (Acesa ou Apagada)",
         "Como foi sua adolescência? (Ruim, Boa ou Ótima)",
         "Teve fase de rebeldia na adolescência? (Sim ou Não)",
@@ -167,8 +174,8 @@ export default function MentalBlocksDashboard() {
         "Ao dinheiro?",
         "Ao amor?",
         "Ao sexo?",
-        "O que era para você, ser uma boa (bom) menina (o)? Descreva.",
-        "Como você deveria agir, ou ser para ser amada (o)?",
+        "O que era para você, ser um/a bom/boa menino/a? Descreva.",
+        "Como você deveria agir, ou ser para ser amado/a?",
         "Possui irmãos? (Não ou Sim – Quantos?)",
         "Como é sua relação com eles?",
         "Você foi uma criança introvertida ou extrovertida?",
@@ -188,20 +195,19 @@ export default function MentalBlocksDashboard() {
         "Qual o ganho secundário?",
         "Em quais situações você desempenha o papel de vítima?",
         "Em quais situações você desempenha o papel de responsável?",
-        "Se considera vitoriosa(o) ou derrotada(o)?",
+        "Se considera vitorioso/a ou derrotado/a?",
         "Nos relacionamentos e na vida, você prefere ser: (Dominante ou Submisso)",
         "Quem deve ser punido por problemas que ocorrem com você? OU Quem é o culpado por seus problemas pessoais?",
         "Sente raiva ou rancor de alguém? (Não ou Sim – Quem?)",
-        "Sente-se de alguma forma pressionada (o) na atualidade? (Sim ou Não) De que maneira?",
+        "Sente-se de alguma forma pressionado/a na atualidade? (Sim ou Não) De que maneira?",
         "Você se acha uma pessoa controladora? (Sim ou Não)",
         "Sente-se de alguma forma inferior aos outros? (Sim ou Não) Por quê?",
         "Duvida de sua própria capacidade? (Sim ou Não)",
-        "Você é audaciosa (o), corre atrás de suas metas, ou é auto protetor(a), preferindo se poupar dos eventuais riscos? (Audaciosa(o) ou Auto protetor(a))",
-        "Existe algo que a(o) faz sentir-se culpada(o)? (Sim ou Não) O que exatamente?",
+        "Você é audacioso/a, corre atrás de suas metas, ou é auto-protetor/a, preferindo se poupar dos eventuais riscos? (Audacioso/a ou Auto-protetor/a)",
+        "Existe algo que o/a faz sentir-se culpado/a? (Sim ou Não) O que exatamente?",
         "Relate detalhes sobre traumas ou bloqueios desta Fase 04:"
       ]
     }
-
   ];
 
   const topEmocoes = useMemo(() => {
@@ -235,7 +241,18 @@ export default function MentalBlocksDashboard() {
     // =========================
 
     Object.keys(respostas).forEach((pergunta) => {
-      mensagem += `*${pergunta}*\n${respostas[pergunta] || "Não respondeu"}\n\n`;
+      if (pergunta.endsWith("_detalhe")) return;
+
+      const respostaBase = respostas[pergunta];
+      const detalhe = respostas[pergunta + "_detalhe"];
+
+      if (respostaBase) {
+        mensagem += `*${pergunta}*\n👉 ${respostaBase}`;
+        if (detalhe) {
+          mensagem += ` — ${detalhe}`;
+        }
+        mensagem += `\n\n`;
+      }
     });
 
     // =========================
@@ -265,130 +282,122 @@ export default function MentalBlocksDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F6] p-4 md:p-8 font-sans selection:bg-[#B08A78]/20 relative overflow-hidden">
-      {/* Subtle paper texture overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }} />
+    <div className="min-h-screen bg-[#FCF8F5] p-6 md:p-12 font-sans selection:bg-[#B08A78]/20 relative overflow-hidden">
+      {/* Premium paper texture overlay */}
+      <div className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")' }} />
       
-      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
-        
-        {/* LOGO ORIGINAL */}
-        <div className="flex justify-center items-center mt-10 mb-[30px]">
-          <img
-            src="https://raw.githubusercontent.com/virginiostudiodesign/TERAPIA-EMOCIONAL/main/logo.png"
-            alt="Miss Daiane"
-            className="w-[420px] max-w-[90%] object-contain"
-          />
-        </div>
+      <div className="max-w-5xl mx-auto space-y-16 relative z-10">
         
         {/* Header content card - BRANDING */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-[3rem] shadow-sm p-12 flex flex-col items-center gap-8 border border-[#F1E4DC] overflow-hidden relative"
+          className="bg-white rounded-[3rem] shadow-sm p-12 flex flex-col items-center gap-10 border border-[#F1E4DC] overflow-hidden relative"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[#F8F1ED] rounded-bl-full" />
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#F8F1ED] rounded-tr-full" />
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[#FCF8F5] rounded-bl-full opacity-50" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FCF8F5] rounded-tr-full opacity-50" />
 
-          <div className="flex flex-col items-center text-center space-y-6 relative">
-            <h1 className="text-[#8B6D5C] text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-wider leading-tight max-w-5xl">
+          
+          <div className="flex flex-col items-center text-center space-y-8 relative w-full pt-4">
+            <h1 className="text-[#8B6D5C] text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-[0.1em] leading-[1.3] max-w-3xl font-sans">
               Protocolo de Avaliação Terapêutica
             </h1>
-            <div className="flex items-center gap-6 py-2">
-              <div className="h-px w-12 bg-[#B08A78]/30" />
-              <p className="text-[#A67C65] text-sm font-black uppercase tracking-[0.3em]">Miss. Daiane</p>
-              <div className="h-px w-12 bg-[#B08A78]/30" />
-            </div>
+            
+            <div className="w-full max-w-3xl h-[1px] bg-[#F1E4DC]/70 my-4" />
           </div>
           
-          <div className="w-full flex flex-wrap items-center gap-8 justify-center border-t border-[#F1E4DC] pt-8 px-4">
-            <div className="flex items-center gap-4 bg-white/60 p-4 rounded-3xl border border-[#F1E4DC] backdrop-blur-sm">
-              <div className="w-10 h-10 bg-[#9A7B68]/5 rounded-full flex items-center justify-center text-[#9A7B68]">
-                <Activity size={20} />
+          <div className="w-full flex flex-col sm:flex-row items-center gap-6 justify-center px-4 z-10">
+            <div className="flex items-center gap-5 bg-white p-5 px-8 rounded-[1.75rem] border border-[#F1E4DC]/80 shadow-[0_4px_15px_-3px_rgba(139,112,98,0.03)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_25px_-5px_rgba(139,112,98,0.06)] min-w-[260px] md:min-w-[280px]">
+              <div className="w-12 h-12 bg-[#B08A78]/5 rounded-full flex items-center justify-center text-[#B08A78] shrink-0">
+                <Activity size={20} strokeWidth={1.5} />
               </div>
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-[#B08A78] opacity-70">Documento</p>
-                <p className="text-xs font-bold text-[#9A7B68]">Avaliação Individualizada</p>
+              <div className="flex flex-col gap-1">
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80">Documento</p>
+                <p className="text-[14px] font-semibold text-[#8B6D5C]">Avaliação Individualizada</p>
               </div>
             </div>
             
-            <div className="flex items-center gap-4 bg-white/60 p-4 rounded-3xl border border-[#F1E4DC] backdrop-blur-sm">
-              <div className="w-10 h-10 bg-[#B08A78]/5 rounded-full flex items-center justify-center text-[#B08A78]">
-                <User size={20} />
+            <div className="flex items-center gap-5 bg-white p-5 px-8 rounded-[1.75rem] border border-[#F1E4DC]/80 shadow-[0_4px_15px_-3px_rgba(139,112,98,0.03)] transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_25px_-5px_rgba(139,112,98,0.06)] min-w-[260px] md:min-w-[280px]">
+              <div className="w-12 h-12 bg-[#B08A78]/5 rounded-full flex items-center justify-center text-[#B08A78] shrink-0">
+                <User size={20} strokeWidth={1.5} />
               </div>
-              <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-[#B08A78] opacity-70">Responsável</p>
-                <p className="text-xs font-bold text-[#9A7B68]">Terapeuta Miss. Daiane</p>
+              <div className="flex flex-col gap-1">
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80">Responsável</p>
+                <p className="text-[14px] font-semibold text-[#8B6D5C]">Terapeuta Miss. Daiane</p>
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* Main Content Sections */}
-        <div className="space-y-10">
+        <div className="space-y-12">
           
           {/* =========================
             IDENTIFICAÇÃO INICIAL
           ========================= */}
-          <div className="bg-white rounded-[35px] p-10 shadow-sm border border-[#F1E4DC] mb-10">
-            <h2
-              className="text-[#8B6D5C] text-2xl font-black uppercase tracking-widest mb-4"
-            >
+          <div className="bg-white rounded-[45px] p-12 md:p-16 shadow-[0_10px_50px_-12px_rgba(139,109,92,0.08)] border border-[#F1E4DC]/40 relative overflow-hidden mb-12">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#B08A78]/20 to-transparent" />
+            
+            <h2 className="text-[#8B6D5C] text-3xl font-display font-light italic tracking-wide mb-3">
               Identificação
             </h2>
 
-            <p
-              className="text-[#A67C65] font-bold uppercase tracking-wide text-xs mb-10 opacity-80"
-            >
-              Preencha seus dados pessoais abaixo
+            <p className="text-[#B08A78] font-sans font-light uppercase tracking-[0.4em] text-[10px] mb-12 opacity-80">
+              Seus dados fundamentais para o acompanhamento
             </p>
 
             <style>{`
               .terapia-input {
                 width: 100%;
-                padding: 18px 24px;
-                border-radius: 30px;
+                padding: 20px 28px;
+                border-radius: 35px;
                 border: 1px solid #F1E4DC;
-                background: #FFF;
-                font-size: 16px;
+                background: rgba(252, 248, 245, 0.3);
+                font-size: 15px;
                 outline: none;
-                color: #333;
-                transition: all 0.3s ease;
+                color: #8B6D5C;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: inherit;
               }
               .terapia-input:focus {
                 border-color: #B08A78;
-                box-shadow: 0 0 0 4px rgba(176, 138, 120, 0.1);
+                background: #FFF;
+                box-shadow: 0 15px 35px -12px rgba(176, 138, 120, 0.15);
               }
               .terapia-label {
                 display: block;
-                margin-bottom: 12px;
+                margin-bottom: 14px;
                 color: #8B6D5C;
-                font-weight: 800;
-                font-size: 13px;
+                font-weight: 500;
+                font-size: 10px;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
+                letter-spacing: 0.3em;
+                font-family: inherit;
+                opacity: 0.8;
               }
               .terapia-btn-binary {
-                padding: 10px 30px;
-                min-width: 100px;
+                padding: 14px 36px;
                 border-radius: 50px;
-                border: 1px solid #EAD8CF;
-                background: #FFF;
+                border: 1px solid #F1E4DC;
+                background: transparent;
                 color: #B08A78;
-                font-weight: 800;
-                font-size: 13px;
+                font-weight: 500;
+                font-size: 11px;
                 text-transform: uppercase;
-                transition: all 0.2s ease;
+                letter-spacing: 0.15em;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+              }
+              .terapia-btn-binary:hover {
+                border-color: #B08A78;
+                background: rgba(176, 138, 120, 0.05);
               }
               .terapia-btn-binary.active {
-                background: #F8F1ED;
+                background: #B08A78;
                 border-color: #B08A78;
-                color: #B08A78;
-                box-shadow: 0 4px 15px rgba(176, 138, 120, 0.15);
+                color: white;
+                box-shadow: 0 10px 30px -8px rgba(176, 138, 120, 0.5);
               }
             `}</style>
 
@@ -410,7 +419,8 @@ export default function MentalBlocksDashboard() {
               <div>
                 <label className="terapia-label">Data de Nascimento</label>
                 <input
-                  type="date"
+                  type="text"
+                  placeholder="DD/MM/AAAA"
                   className="terapia-input"
                   value={formData.nascimento}
                   onChange={(e) => setFormData({ ...formData, nascimento: e.target.value })}
@@ -547,7 +557,7 @@ export default function MentalBlocksDashboard() {
               className="bg-white rounded-[40px] p-10 md:p-14 mb-16 shadow-sm border border-[#F1E4DC]"
             >
               <h2
-                className="text-[#8B6D5C] text-2xl md:text-3xl font-black uppercase tracking-widest mb-10 text-center"
+                className="text-[#8B6D5C] text-2xl md:text-3xl font-display font-semibold uppercase tracking-widest mb-10 text-center"
               >
                 {etapa.titulo}
               </h2>
@@ -568,36 +578,100 @@ export default function MentalBlocksDashboard() {
                     perguntaOriginal.includes("Vítima ou Responsável") ||
                     perguntaOriginal.includes("Dominante ou Submisso") ||
                     perguntaOriginal.includes("Excelente") ||
-                    perguntaOriginal.includes("Audaciosa(o)")
+                    perguntaOriginal.includes("Audaciosa(o)") ||
+                    perguntaOriginal.includes("Audacioso/a")
                   );
 
                   const label = perguntaOriginal.split(' (')[0];
-                  const options = showOptions ? optionsMatch[1].split(/ ou |, /) : [];
+
+                  // Extract detail question if any (e.g., text after closing parenthesis)
+                  const lastCloseParenIndex = perguntaOriginal.lastIndexOf(')');
+                  let detailQuestion = "";
+                  if (lastCloseParenIndex !== -1) {
+                    detailQuestion = perguntaOriginal.substring(lastCloseParenIndex + 1).trim();
+                  }
+
+                  // Also check for embedded details inside option string like (Não ou Sim – Quantos?)
+                  const rawOptionString = optionsMatch ? optionsMatch[1] : "";
+                  let extractedDetailSuffix = "";
+                  if (rawOptionString.includes("–") || rawOptionString.includes("-")) {
+                    const parts = rawOptionString.split(/[–-]/);
+                    if (parts.length > 1) {
+                      extractedDetailSuffix = parts[1].trim();
+                    }
+                  }
+
+                  const finalDetailQuestion = detailQuestion || extractedDetailSuffix;
+
+                  // Clean options array
+                  const options = showOptions 
+                    ? rawOptionString.split(/ ou |, /).map(o => {
+                        const parts = o.split(/[–-]/);
+                        return parts[0].trim();
+                      }) 
+                    : [];
+
+                  const selectedOption = respostas[perguntaOriginal] || "";
+
+                  // Show detail input if there's a detail question, and an option has been chosen
+                  // except we don't demand "Qual" details for a negative "Não" choice (unless the detail contains "por que" or "por quê")
+                  const shouldShowDetailInput = finalDetailQuestion.length > 0 && selectedOption && (
+                    selectedOption.toLowerCase() !== "não" || 
+                    finalDetailQuestion.toLowerCase().includes("por que") || 
+                    finalDetailQuestion.toLowerCase().includes("por quê")
+                  );
 
                   // Determine if the question should be full width
-                  const isFullWidth = !showOptions || label.length > 60;
+                  const isFullWidth = !showOptions || label.length > 60 || finalDetailQuestion.length > 0;
 
                   return (
                     <div key={perguntaIndex} className={isFullWidth ? "col-span-full" : ""}>
-                      <label className="terapia-label mb-6 text-base leading-relaxed">
+                      <label className="terapia-label mb-4 text-base leading-relaxed block">
                         {label}
                       </label>
 
                       {showOptions ? (
-                        <div className="flex flex-wrap gap-4">
-                          {options.map((option) => {
-                            const cleanOption = option.trim();
-                            const isSelected = respostas[perguntaOriginal] === cleanOption;
-                            return (
-                              <button
-                                key={cleanOption}
-                                onClick={() => setRespostas({ ...respostas, [perguntaOriginal]: cleanOption })}
-                                className={`terapia-btn-binary ${isSelected ? 'active' : ''}`}
-                              >
-                                {cleanOption}
-                              </button>
-                            );
-                          })}
+                        <div className="flex flex-col gap-4">
+                          <div className="flex flex-wrap gap-4">
+                            {options.map((option) => {
+                              const cleanOption = option.trim();
+                              const isSelected = selectedOption === cleanOption;
+                              return (
+                                <button
+                                  key={cleanOption}
+                                  onClick={() => setRespostas({ ...respostas, [perguntaOriginal]: cleanOption })}
+                                  className={`terapia-btn-binary ${isSelected ? 'active' : ''}`}
+                                >
+                                  {cleanOption}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          {shouldShowDetailInput && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-2"
+                            >
+                              <label className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#B08A78]/80 block mb-2">
+                                {finalDetailQuestion}
+                              </label>
+                              <textarea
+                                rows={2}
+                                placeholder="Digite o detalhe aqui..."
+                                value={respostas[perguntaOriginal + "_detalhe"] || ""}
+                                onChange={(e) =>
+                                  setRespostas({
+                                    ...respostas,
+                                    [perguntaOriginal + "_detalhe"]: e.target.value
+                                  })
+                                }
+                                className="terapia-input"
+                                style={{ borderRadius: "20px", resize: "none" }}
+                              />
+                            </motion.div>
+                          )}
                         </div>
                       ) : (
                         <textarea
@@ -625,75 +699,30 @@ export default function MentalBlocksDashboard() {
           {/* =========================
             MAPA EMOCIONAL COMPLETO
           ========================= */}
-          <div
-            style={{
-              marginTop: "50px",
-              background: "white",
-              padding: "50px",
-              borderRadius: "40px",
-              border: "1px solid #F1E4DC"
-            }}
-          >
-            <h2
-              className="text-[#8B6D5C] text-3xl font-black uppercase tracking-widest mb-4"
-            >
+          <div className="bg-white rounded-[45px] p-12 md:p-16 shadow-[0_10px_50px_-12px_rgba(139,109,92,0.06)] border border-[#F1E4DC]/40 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-[#FCF8F5] rounded-bl-full opacity-50" />
+            
+            <h2 className="text-[#8B6D5C] text-3xl font-display font-light italic tracking-wide mb-3 relative z-10">
               Mapa Emocional
             </h2>
 
-            <p
-              className="text-[#A67C65] font-bold uppercase tracking-wide text-sm mb-12 opacity-80"
-            >
-              Avalie a intensidade de cada emoção de 0 a 10
+            <p className="text-[#B08A78] font-sans font-light uppercase tracking-[0.4em] text-[10px] mb-14 opacity-80 relative z-10">
+              Autoavaliação da intensidade afetiva
             </p>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit,minmax(300px,1fr))",
-                gap: "22px"
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
               {emocoes.map((emocao) => (
                   <div
                     key={emocao}
-                    style={{
-                      background: "#FFF",
-                      border: "1px solid #F1E4DC",
-                      borderRadius: "25px",
-                      padding: "22px",
-                      boxShadow: "0 4px 15px rgba(0,0,0,0.02)"
-                    }}
+                    className="group bg-[#FCF8F5]/30 border border-[#F1E4DC]/60 rounded-3xl p-6 transition-all hover:bg-white hover:shadow-[0_15px_35px_-10px_rgba(176,138,120,0.1)] hover:border-[#B08A78]/30"
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: "15px"
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "#9A7B68",
-                          fontWeight: "900",
-                          fontSize: "14px",
-                          letterSpacing: "1px"
-                        }}
-                      >
+                    <div className="flex justify-between items-center mb-5">
+                      <span className="text-[#8B6D5C] font-sans font-medium text-[11px] uppercase tracking-widest opacity-80 group-hover:opacity-100 transition-opacity">
                         {emocao}
                       </span>
 
-                      <span
-                        style={{
-                          background: "#F8F1ED",
-                          color: "#B08A78",
-                          padding: "4px 12px",
-                          borderRadius: "10px",
-                          fontWeight: "800",
-                          fontSize: "13px"
-                        }}
-                      >
-                        {emocional?.[emocao] || 0}/10
+                      <span className="bg-[#B08A78]/5 text-[#B08A78] px-3 py-1 rounded-lg font-display italic text-sm">
+                        {emocional?.[emocao] || 0}
                       </span>
                     </div>
 
@@ -708,73 +737,75 @@ export default function MentalBlocksDashboard() {
                           [emocao]: Number(e.target.value)
                         })
                       }
-                      style={{
-                        width: "100%",
-                        accentColor: "#B08A78",
-                        cursor: "pointer"
-                      }}
+                      className="w-full h-1.5 bg-[#F1E4DC] rounded-full appearance-none cursor-pointer accent-[#B08A78]"
                     />
                   </div>
               ))}
             </div>
           </div>
+
           {/* =========================
             FINALIZAÇÃO / ACOLHIMENTO
           ========================= */}
-          <div
-            style={{
-              marginTop: "60px",
-              padding: "50px",
-              borderRadius: "40px",
-              background: "white",
-              textAlign: "center",
-              border: "1px solid #F1E4DC"
-            }}
-          >
-            <h2
-              className="text-[#8B6D5C] text-2xl md:text-3xl font-black uppercase tracking-widest mb-8"
-            >
-              Mensagem de Acolhimento
-            </h2>
+          <div className="bg-[#FCF8F5] rounded-[50px] p-16 md:p-24 text-center relative overflow-hidden text-[#8B6D5C] border border-[#F1E4DC] shadow-[0_15px_50px_-15px_rgba(139,112,98,0.08)]">
+            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]" />
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#B08A78]/5 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#B08A78]/10 rounded-full blur-3xl" />
 
-            <p
-              className="text-[#A67C65] text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-medium italic"
-            >
-              “Muitas vezes os traumas silenciosos deixam marcas profundas,
-              mas nenhuma dor define quem você é.
-              Existe cura para aquilo que por anos tentou sobreviver escondido dentro de você.”
-            </p>
-
-            <div
-              className="mt-10 text-[#8B6D5C] font-semibold text-lg md:text-xl leading-relaxed opacity-90"
-            >
-              “Porque sou eu que conheço os planos que tenho para vocês,
-              diz o Senhor, planos de fazê-los prosperar e não de lhes causar dano,
-              planos de dar-lhes esperança e um futuro.”
+            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
+              <div className="w-16 h-px bg-[#B08A78]/25 mx-auto" />
               
-              <div className="mt-6 font-black uppercase tracking-widest text-sm">
-                Jeremias 29:11
+              <h2 className="text-[#8B6D5C] text-4xl md:text-5xl font-display font-light italic tracking-tight leading-tight">
+                Espaço de Acolhimento
+              </h2>
+
+              <p className="text-[#8B6D5C]/90 text-xl md:text-2xl leading-relaxed font-light italic font-serif">
+                “Muitas vezes os traumas silenciosos deixam marcas profundas,
+                mas nenhuma dor define quem você é. <br className="hidden md:block" />
+                Existe cura para aquilo que por anos tentou sobreviver escondido dentro de você.”
+              </p>
+
+              <div className="space-y-4">
+                <p className="text-[#B08A78] font-sans font-medium text-lg md:text-xl leading-relaxed max-w-xl mx-auto">
+                  “Porque sou eu que conheço os planos que tenho para vocês,
+                  diz o Senhor, planos de fazê-los prosperar e não de lhes causar dano,
+                  planos de dar-lhes esperança e um futuro.”
+                </p>
+                
+                <div className="text-[10px] text-[#B08A78] font-sans font-bold uppercase tracking-[0.5em] opacity-60">
+                  Jeremias 29:11
+                </div>
               </div>
+
+              <div className="w-16 h-px bg-[#B08A78]/25 mx-auto" />
             </div>
           </div>
 
           {/* =========================
             BOTÃO FINAL
           ========================= */}
-          <div className="pb-20">
+          <div className="pb-24">
               <button
                 onClick={enviarWhatsApp}
-                className="w-full mt-12 p-6 rounded-[35px] bg-[#8B6D5C] text-white text-lg font-black uppercase tracking-widest cursor-pointer shadow-xl shadow-[#8B6D5C]/20 hover:bg-[#725a4c] transition-all hover:-translate-y-1 active:scale-[0.98]"
+                className="w-full mt-12 p-8 rounded-[40px] bg-[#B08A78] text-white text-base md:text-lg font-sans font-medium uppercase tracking-[0.3em] cursor-pointer shadow-[0_15px_45px_rgba(176,138,120,0.25)] hover:bg-[#A37B67] transition-all hover:-translate-y-1 active:scale-[0.98] group flex items-center justify-center gap-4"
               >
-                Finalizar e Enviar Avaliação 💜
+                <div className="w-8 h-px bg-white/30 group-hover:w-12 transition-all" />
+                Finalizar e Enviar Avaliação
+                <div className="w-8 h-px bg-white/30 group-hover:w-12 transition-all" />
               </button>
           </div>
         </div>
 
       </div>
 
-          <footer className="max-w-6xl mx-auto mt-12 pb-12 text-center text-[12px] font-black uppercase tracking-[0.4em] text-[#B08A78]">
-            Miss. Daiane • Terapeuta Emocional • Protocolo de Avaliação
+          <footer className="max-w-6xl mx-auto mt-12 pb-16 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-px bg-[#B08A78]/20" />
+              <p className="text-[9px] md:text-[10px] font-sans font-light uppercase tracking-[0.8em] text-[#B08A78]/60">
+                Miss. Daiane • Terapeuta Emocional • Protocolo de Avaliação
+              </p>
+              <div className="w-12 h-px bg-[#B08A78]/20" />
+            </div>
           </footer>
 
           <style>{`

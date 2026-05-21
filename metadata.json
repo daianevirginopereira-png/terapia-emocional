@@ -1,6 +1,6 @@
 {
-  "name": "Remix: Mental Blocks Dashboard",
-  "description": "A therapeutic dashboard for assessing and visualizing emotional and behavioral mental blocks.",
+  "name": "Miss. Daiane - Terapeuta Emocional",
+  "description": "Protocolo de Avaliação Terapêutica avançado para identificação de bloqueios emocionais e traumas.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
