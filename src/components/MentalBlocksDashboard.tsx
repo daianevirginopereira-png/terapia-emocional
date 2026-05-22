@@ -13,7 +13,8 @@ import {
   CheckCircle2,
   Target,
   Map,
-  MessageCircle
+  MessageCircle,
+  Printer
 } from 'lucide-react';
 
 interface Emotion {
@@ -68,7 +69,6 @@ export default function MentalBlocksDashboard() {
     nascimento: '',
     estadoCivil: '',
     cidade: '',
-    uf: '',
     profissao: '',
     empresa: '',
     atividade: '',
@@ -102,10 +102,10 @@ export default function MentalBlocksDashboard() {
         "Você sente frustração em relação a Irmãos?",
         "Você sente frustração em relação a Filhos?",
         "Você sente frustração em relação a Profissão?",
-        "Colégio?",
-        "Cônjuge?",
-        "Identidade Sexual?",
-        "Vida Sexual? Por quê?",
+        "Você sente frustração em relação ao período escolar ou colégio?",
+        "Você sente frustração em relação ao seu cônjuge ou parceiro?",
+        "Você sente frustração em relação à sua identidade sexual?",
+        "Você sente frustração em relação à sua vida sexual? Por quê?",
         "Iniciou sua sexualidade com que idade?",
         "Como foi sua primeira vez? (Traumática, Normal, Boa ou Satisfatória)",
         "Tem tido algum problema em relação ao sexo?",
@@ -172,9 +172,9 @@ export default function MentalBlocksDashboard() {
         "Teve fase de rebeldia na adolescência? (Sim ou Não)",
         "Com qual de seus pais você tinha mais dificuldade de relacionamento? (Pai, Mãe ou Ambos)",
         "Qual a Filosofia de sua família em relação ao sucesso profissional?",
-        "Ao dinheiro?",
-        "Ao amor?",
-        "Ao sexo?",
+        "Qual a Filosofia de sua família em relação ao dinheiro?",
+        "Qual a Filosofia de sua família em relação ao amor?",
+        "Qual a Filosofia de sua família em relação ao sexo?",
         "O que era para você, ser um/a bom/boa menino/a? Descreva.",
         "Como você deveria agir, ou ser para ser amado/a?",
         "Possui irmãos? (Não ou Sim – Quantos?)",
@@ -228,7 +228,7 @@ export default function MentalBlocksDashboard() {
     mensagem += `*Nome:* ${formData.nome || "Não informado"}\n`;
     mensagem += `*Nascimento:* ${formData.nascimento || "Não informado"}\n`;
     mensagem += `*Estado Civil:* ${formData.estadoCivil || "Não informado"}\n`;
-    mensagem += `*Cidade/UF:* ${formData.cidade || "Não informada"} / ${formData.uf || "Não informada"}\n`;
+    mensagem += `*Cidade:* ${formData.cidade || "Não informada"}\n`;
     mensagem += `*Profissão:* ${formData.profissao || "Não informada"}\n`;
     mensagem += `*Empresa:* ${formData.empresa || "Não informada"}\n`;
     mensagem += `*Atividade:* ${formData.atividade || "Não informada"}\n`;
@@ -297,12 +297,12 @@ export default function MentalBlocksDashboard() {
           className="py-16 flex flex-col items-center gap-4 text-center select-none"
         >
           <div className="flex flex-col items-center">
-            <h1 className="text-[#766255] text-[20px] sm:text-[30px] md:text-[38px] font-bold font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] leading-tight max-w-4xl">
+            <h1 className="text-[#766255] text-[20px] sm:text-[30px] md:text-[38px] font-extrabold font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] leading-tight max-w-4xl">
               PROTOCOLO DE AVALIAÇÃO
             </h1>
             <div className="mt-3 inline-block bg-[#EFE5DF] px-5 py-1.5">
-              <span className="text-[#766255] text-[18px] sm:text-[26px] md:text-[32px] font-bold font-sans uppercase tracking-[0.22em] block leading-none">
-                TERAPÊUTICA
+              <span className="text-[#766255] text-[18px] sm:text-[26px] md:text-[32px] font-extrabold font-sans uppercase tracking-[0.22em] block leading-none">
+                TERAPÊUTICO
               </span>
             </div>
           </div>
@@ -380,6 +380,65 @@ export default function MentalBlocksDashboard() {
                 color: white;
                 box-shadow: 0 10px 30px -8px rgba(180, 140, 122, 0.4);
               }
+
+              @media print {
+                body {
+                  background: #FFFFFF !important;
+                  background-image: none !important;
+                  color: #33221A !important;
+                  padding: 0 !important;
+                  margin: 0 !important;
+                }
+                .no-print {
+                  display: none !important;
+                }
+                .print-avoid-break {
+                  page-break-inside: avoid !important;
+                  break-inside: avoid !important;
+                }
+                .terapia-input {
+                  border: none !important;
+                  border-bottom: 1px dashed #B48C7A !important;
+                  border-radius: 0 !important;
+                  padding: 4px 0 !important;
+                  background: transparent !important;
+                  color: #33221A !important;
+                  box-shadow: none !important;
+                  font-size: 14px !important;
+                  height: auto !important;
+                  min-height: unset !important;
+                  resize: none !important;
+                }
+                .terapia-btn-binary {
+                  border: 1px solid #766255 !important;
+                  border-radius: 6px !important;
+                  padding: 4px 12px !important;
+                  font-size: 11px !important;
+                  background: #FFFFFF !important;
+                  color: #766255 !important;
+                  box-shadow: none !important;
+                }
+                .terapia-btn-binary.active {
+                  background: #B48C7A !important;
+                  color: #FFFFFF !important;
+                  border-color: #B48C7A !important;
+                  font-weight: bold !important;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+                .bg-white {
+                  background: #FFFFFF !important;
+                  border: 1px solid #EAE1D5 !important;
+                  box-shadow: none !important;
+                  border-radius: 12px !important;
+                  padding: 1.5rem !important;
+                  margin-bottom: 1.5rem !important;
+                }
+                * {
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
+                }
+              }
             `}</style>
 
             {/* DADOS PESSOAIS 1 */}
@@ -419,7 +478,7 @@ export default function MentalBlocksDashboard() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="md:col-span-2">
                 <label className="terapia-label">Cidade</label>
                 <input
@@ -428,16 +487,6 @@ export default function MentalBlocksDashboard() {
                   className="terapia-input"
                   value={formData.cidade}
                   onChange={(e) => setFormData({ ...formData, cidade: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="terapia-label">UF</label>
-                <input
-                  type="text"
-                  placeholder="Digite aqui..."
-                  className="terapia-input"
-                  value={formData.uf}
-                  onChange={(e) => setFormData({ ...formData, uf: e.target.value })}
                 />
               </div>
             </div>
@@ -529,21 +578,28 @@ export default function MentalBlocksDashboard() {
           {/* =========================
             RENDERIZAÇÃO DAS ETAPAS
           ========================= */}
-          {etapasAnamnese.map((etapa, etapaIndex) => (
-            <motion.div
-              key={etapaIndex}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-[2.5rem] p-8 md:p-14 shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] border border-[#EAE1D5] mb-12 relative overflow-hidden"
-            >
-              <div className="flex justify-between items-baseline mb-8 pb-6 border-b border-[#EAE1D5]/60">
-                <h2 className="text-[#766255] text-xl sm:text-2xl font-bold font-sans uppercase tracking-[0.08em]">
-                  {etapa.titulo}
-                </h2>
-              </div>
+          {etapasAnamnese.map((etapa, etapaIndex) => {
+            const isEtapaRespondida = etapa.perguntas.some(p => {
+              const ans = respostas[p];
+              const det = respostas[p + "_detalhe"];
+              return (ans && ans.trim() !== "") || (det && det.trim() !== "");
+            });
 
-              <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
+            return (
+              <motion.div
+                key={etapaIndex}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`bg-white rounded-[2.5rem] p-8 md:p-14 shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] border border-[#EAE1D5] mb-12 relative overflow-hidden ${!isEtapaRespondida ? 'print:hidden' : ''}`}
+              >
+                <div className="flex justify-between items-baseline mb-8 pb-6 border-b border-[#EAE1D5]/60">
+                  <h2 className="text-[#766255] text-xl sm:text-2xl font-bold font-sans uppercase tracking-[0.08em]">
+                    {etapa.titulo}
+                  </h2>
+                </div>
+
+                <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
                 {etapa.perguntas.map((perguntaOriginal, perguntaIndex) => {
                   const optionsMatch = perguntaOriginal.match(/\(([^)]+)\)/);
                   const showOptions = optionsMatch && (
@@ -604,9 +660,14 @@ export default function MentalBlocksDashboard() {
 
                   // Determine if the question should be full width
                   const isFullWidth = !showOptions || label.length > 60 || finalDetailQuestion.length > 0;
+                  const hasResponse = (respostas[perguntaOriginal] && respostas[perguntaOriginal].trim() !== "") || 
+                                     (respostas[perguntaOriginal + "_detalhe"] && respostas[perguntaOriginal + "_detalhe"].trim() !== "");
 
                   return (
-                    <div key={perguntaIndex} className={isFullWidth ? "col-span-full" : ""}>
+                    <div 
+                      key={perguntaIndex} 
+                      className={`${isFullWidth ? "col-span-full" : ""} ${!hasResponse ? "print:hidden" : "print-avoid-break"}`}
+                    >
                       <label className="text-[#766255] font-bold text-xs sm:text-[13px] tracking-[0.08em] uppercase block mb-4 leading-relaxed">
                         {label}
                       </label>
@@ -671,7 +732,8 @@ export default function MentalBlocksDashboard() {
               </div>
 
             </motion.div>
-          ))}
+          );
+        })}
 
           {/* =========================
             MAPA EMOCIONAL COMPLETO
@@ -713,8 +775,16 @@ export default function MentalBlocksDashboard() {
                           [emocao]: Number(e.target.value)
                         })
                       }
-                      className="w-full h-1.5 bg-[#EAE1D5] rounded-full appearance-none cursor-pointer accent-[#B48C7A]"
+                      className="w-full h-1.5 bg-[#EAE1D5] rounded-full appearance-none cursor-pointer accent-[#B48C7A] print:hidden"
                     />
+
+                    {/* Barra de progresso para impressão */}
+                    <div className="hidden print:block w-full bg-[#EAE1D5] h-2 rounded-full overflow-hidden mt-1">
+                      <div 
+                        className="bg-[#B48C7A] h-2 rounded-full" 
+                        style={{ width: `${(emocional?.[emocao] || 0) * 10}%` }}
+                      />
+                    </div>
                   </div>
               ))}
             </div>
@@ -785,101 +855,90 @@ export default function MentalBlocksDashboard() {
           </div>
 
           {/* =========================
-            BOTÃO FINAL (Pill-shaped, beautifully animated with glowing waves)
+            BOTÕES FINAIS (Salvar como PDF/Imprimir & Enviar no WhatsApp)
           ========================= */}
-          <div className="pb-24 max-w-xl mx-auto relative flex flex-col items-center">
-              {/* Harmonic Breathing Aura Rings behind the button representing healing energy flow */}
+          <div className="pb-24 max-w-2xl mx-auto relative flex flex-col items-center gap-6 no-print">
+              {/* Harmonic Breathing Aura Rings behind the button panel */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-visible">
                 <motion.div
-                  className="absolute w-64 h-24 rounded-full bg-[#B48C7A]/20 blur-md"
+                  className="absolute w-80 h-32 rounded-full bg-[#B48C7A]/10 blur-xl"
                   animate={{
-                    scale: [1, 1.25, 1],
-                    opacity: [0.6, 0, 0.6]
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.6, 0.3]
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut"
-                  }}
-                />
-                <motion.div
-                  className="absolute w-72 h-32 rounded-full bg-[#B48C7A]/10 blur-xl"
-                  animate={{
-                    scale: [1, 1.4, 1],
-                    opacity: [0.4, 0, 0.4]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1.5
                   }}
                 />
               </div>
 
-              <motion.button
-                onClick={enviarWhatsApp}
-                className="w-full mt-12 py-5 px-10 rounded-full bg-[#B48C7A] text-white text-sm md:text-base font-sans font-bold uppercase tracking-wide cursor-pointer flex items-center justify-center gap-3 select-none relative overflow-hidden z-10"
-                whileHover={{ 
-                  scale: 1.05,
-                  backgroundColor: "#A07865",
-                  y: -3,
-                  boxShadow: "0px 20px 40px rgba(160, 120, 101, 0.45)"
-                }}
-                whileTap={{ scale: 0.96 }}
-                animate={{
-                  y: [0, -4, 0],
-                  boxShadow: [
-                    "0px 12px 30px rgba(180, 140, 122, 0.3)",
-                    "0px 18px 45px rgba(180, 140, 122, 0.5)",
-                    "0px 12px 30px rgba(180, 140, 122, 0.3)"
-                  ]
-                }}
-                transition={{
-                  scale: { duration: 0.2 },
-                  y: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  },
-                  boxShadow: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }
-                }}
-              >
-                {/* Glowing laser/shimmer sweep animation */}
-                <motion.div 
-                  className="absolute top-0 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
+              <div className="w-full relative z-10 flex justify-center">
+                
+                {/* Botão Único: WhatsApp */}
+                <motion.button
+                  onClick={enviarWhatsApp}
+                  className="w-full py-5 px-8 sm:px-12 rounded-full bg-[#B48C7A] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wide cursor-pointer flex items-center justify-center gap-3 select-none relative overflow-hidden"
+                  whileHover={{ 
+                    scale: 1.04,
+                    backgroundColor: "#A07865",
+                    y: -2,
+                    boxShadow: "0px 18px 36px rgba(160, 120, 101, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.97 }}
                   animate={{
-                    left: ["-100%", "200%"]
+                    boxShadow: [
+                      "0px 8px 20px rgba(180, 140, 122, 0.2)",
+                      "0px 15px 35px rgba(180, 140, 122, 0.4)",
+                      "0px 8px 20px rgba(180, 140, 122, 0.2)"
+                    ]
                   }}
                   transition={{
-                    duration: 2.8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatDelay: 1.2
-                  }}
-                  style={{ width: "40%" }}
-                />
-                
-                <motion.div
-                  animate={{ 
-                    rotate: [0, -12, 12, -12, 12, 0],
-                    scale: [1, 1.15, 1, 1.15, 1]
-                  }}
-                  transition={{ 
-                    duration: 2.5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    repeatDelay: 3
+                    boxShadow: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
                   }}
                 >
-                  <MessageCircle className="w-5 h-5 md:w-6 md:h-6 shrink-0 text-white drop-shadow-[0_2px_5px_rgba(255,255,255,0.4)]" strokeWidth={2.5} />
-                </motion.div>
-                <span className="relative z-10 font-bold tracking-wider drop-shadow-sm">Enviar Resultados no WhatsApp</span>
-              </motion.button>
+                  {/* Glowing shimmer sweep animation */}
+                  <motion.div 
+                    className="absolute top-0 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                    animate={{
+                      left: ["-100%", "200%"]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      repeatDelay: 1
+                    }}
+                    style={{ width: "30%" }}
+                  />
+                  
+                  <motion.div
+                    animate={{ 
+                      rotate: [0, -10, 10, -10, 10, 0],
+                      scale: [1, 1.15, 1, 1.15, 1]
+                    }}
+                    transition={{ 
+                      duration: 2.5, 
+                      repeat: Infinity, 
+                      ease: "easeInOut",
+                      repeatDelay: 2
+                    }}
+                    className="shrink-0"
+                  >
+                    <MessageCircle className="w-5 h-5" strokeWidth={2.5} />
+                  </motion.div>
+                  <span className="font-bold tracking-wider text-white">Enviar Resultados no WhatsApp</span>
+                </motion.button>
+              </div>
+
+              <p className="text-[10px] text-[#A08C80] font-medium tracking-wide text-center opacity-80 mt-1 max-w-sm">
+                💡 <b>Dica:</b> Ao clicar neste botão, você iniciará o envio das respostas preenchidas diretamente para o WhatsApp da Miss. Daiane.
+              </p>
           </div>
         </div>
 
