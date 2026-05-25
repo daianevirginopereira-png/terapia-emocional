@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   User, 
@@ -14,7 +14,10 @@ import {
   Target,
   Map,
   MessageCircle,
-  Printer
+  Printer,
+  Heart,
+  Sparkles,
+  Wind
 } from 'lucide-react';
 
 interface Emotion {
@@ -68,7 +71,11 @@ export default function MentalBlocksDashboard() {
     nome: '',
     nascimento: '',
     estadoCivil: '',
+    endereco: '',
+    bairro: '',
+    cep: '',
     cidade: '',
+    estado: '',
     profissao: '',
     empresa: '',
     atividade: '',
@@ -81,29 +88,66 @@ export default function MentalBlocksDashboard() {
   // --- State for Anamnese Answers ---
   const [respostas, setRespostas] = useState<Record<string, string>>({});
 
+  // --- State for Breathing Exercise ---
+  const [isBreathingState, setIsBreathingState] = useState(false);
+  const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale'>('inhale');
+  const [breathingSeconds, setBreathingSeconds] = useState(4);
+
+  useEffect(() => {
+    let interval: any = null;
+    if (isBreathingState) {
+      interval = setInterval(() => {
+        setBreathingSeconds((prev) => {
+          if (prev <= 1) {
+            if (breathingPhase === 'inhale') {
+              setBreathingPhase('hold');
+              return 4;
+            } else if (breathingPhase === 'hold') {
+              setBreathingPhase('exhale');
+              return 4;
+            } else {
+              setBreathingPhase('inhale');
+              return 4;
+            }
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      setBreathingSeconds(4);
+      setBreathingPhase('inhale');
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isBreathingState, breathingPhase]);
+
   const etapasAnamnese = [
     {
       titulo: "Fase o1 – Vida Pessoal",
       perguntas: [
+        // Relacionamento Conjugal / Estado Civil / Família Direta
         "É casado/a, solteiro/a ou divorciado/a?",
         "Se é divorciado/a, por qual motivo e como se sente?",
-        "Número de filhos:",
-        "Como é o seu relacionamento com seus filhos?",
-        "Como você se sente em seu relacionamento com seu/sua parceiro/a?",
+        "Como se sente e se tem alguma frustração em relação ao seu parceiro ou cônjuge?",
         "Como você se sente em sua casa, dentro do contexto familiar?",
-        "Como você se sente no seu trabalho?",
-        "Você se sente pertencendo ao Contexto Familiar? (Sim ou Não)",
-        "Por quê? (Contexto Familiar)",
-        "Você se sente pertencendo ao Contexto Social? (Sim ou Não)",
-        "Por quê? (Contexto Social)",
-        "Você se sente pertencendo ao Contexto Religioso? (Sim ou Não)",
-        "Por quê? (Contexto Religioso)",
-        "Você sente frustração em relação a Pais?",
-        "Você sente frustração em relação a Irmãos?",
-        "Você sente frustração em relação a Filhos?",
-        "Você sente frustração em relação a Profissão?",
+        "Você se sente pertencendo ao Contexto Familiar? (Sim ou Não) Por quê?",
+        
+        // Filhos
+        "Possui filhos? Se sim, quantos e como se sente/se tem frustrações em relação a eles?",
+
+        // Trabalho / Profissão
+        "Como você se sente no trabalho e se sente alguma frustração com sua profissão?",
+
+        // Contextos Social e Religioso
+        "Você se sente pertencendo ao Contexto Social? (Sim ou Não) Por quê?",
+        "Você se sente pertencendo ao Contexto Religioso? (Sim ou Não) Por quê?",
+
+        // Frustrações de Origem / Passado-Presente
+        "Você sente frustração em relação a seus Pais ou Irmãos?",
         "Você sente frustração em relação ao período escolar ou colégio?",
-        "Você sente frustração em relação ao seu cônjuge ou parceiro?",
+
+        // Sexualidade e Saúde Íntima (ALL VERBATIM & INTACT)
         "Você sente frustração em relação à sua identidade sexual?",
         "Você sente frustração em relação à sua vida sexual? Por quê?",
         "Iniciou sua sexualidade com que idade?",
@@ -111,15 +155,12 @@ export default function MentalBlocksDashboard() {
         "Tem tido algum problema em relação ao sexo?",
         "Atualmente sempre se realiza nas relações sexuais? (Sim ou Não)",
         "O sexo para você é algo: (Importante, Sem importância ou Muito importante)",
-        "Algum trauma? (Sim ou Não) Qual?",
-        "Alguma fobia? (Sim ou Não) Qual?",
-        "Tem medo de alguma coisa? (Sim ou Não) De quê?",
-        "Usa drogas? (Sim ou Não) Quais?",
-        "Dores de cabeça? (Sim ou Não) Com que frequência?",
-        "Insônia? (Sim ou Não) Com que frequência?",
+
+        // Saúde Física, Emocional e Hábitos / Vícios / Fobias
+        "Possui algum trauma, fobia significativa ou medo de algo? (Sim ou Não) Qual?",
+        "Usa drogas, bebidas alcoólicas ou é fumante? (Sim ou Não) Quais e com que frequência?",
+        "Sofre de dores de cabeça ou insônia? (Sim ou Não) Com que frequência?",
         "Tem ideias suicidas? (Sim ou Não) Quais?",
-        "Usa bebidas alcoólicas? (Sim ou Não) Com que frequência?",
-        "É fumante? (Sim ou Não)",
         "Está grávida? (Sim ou Não) Quantas semanas?",
         "Relate detalhes sobre traumas ou bloqueios desta Fase 01:"
       ]
@@ -127,85 +168,88 @@ export default function MentalBlocksDashboard() {
     {
       titulo: "Fase o2 – Mental",
       perguntas: [
+        // Saúde Mental, Acompanhamento e Tratamento
         "Qual o seu nível de stress? (Alto, Médio ou Baixo)",
         "Atualmente está tomando alguma medicação? (Sim ou Não) Qual?",
-        "Algum trauma? (Sim ou Não) Qual?",
-        "Já consultou algum tipo de psiquiatra ou psicólogo? (Sim ou Não)",
-        "Se sim, foi diagnosticado/a? (Sim ou Não)",
-        "Qual a quantidade de amigos que você tem?",
-        "Qual seu passatempo preferido?",
+        "Já consultou algum tipo de psiquiatra ou psicólogo? (Sim ou Não) Se sim, foi diagnosticado/a?",
+
+        // Relações Sociais e Lazer
+        "Qual seu passatempo preferido e quantidade de amigos que possui?",
+
+        // Autoimagem e Identidade frente ao Outro
         "Qual a principal a crença que as pessoas possuem em relação a você que mais se repete?",
+        "Qual sua visão sobre você e o que mudaria em seu comportamento atual se pudesse?",
         "Você se considera feliz? (Sim ou Não) Por quê?",
-        "Se você pudesse mudar alguma coisa em você, no seu modo de ser, ou agir, ou no seu comportamento atual, o que mudaria?",
         "Defina o que é a vida em apenas uma frase",
-        "Quais são os tipos de pensamentos que você costuma alimentar em relação a si mesmo/a, de uma maneira geral? (Positivos ou Negativos) Quais exatamente?",
-        "Em relação a sua aparência física? (Positivos ou Negativos) Quais exatamente?",
+
+        // Alimentação de Pensamentos (Tipos de Pensamentos de si mesmo)
+        "Quais tipos de pensamentos alimenta sobre si mesmo de forma geral e em relação à sua aparência física? (Positivos ou Negativos) Quais?",
         "Em relação a sua competência profissional? (Positivos ou Negativos) Quais exatamente?",
         "Em relação a sua vida emocional? (Positivos ou Negativos) Quais exatamente?",
         "Em relação a sua vida sexual? (Positivos ou Negativos) Quais exatamente?",
-        "Em relação ao seu passado? (Positivos ou Negativos) Quais exatamente?",
-        "Em relação ao seu futuro? (Positivos ou Negativos) Quais exatamente?",
-        "Qual sua visão sobre você?",
+        "Quais pensamentos você costuma alimentar em relação ao seu passado e ao seu futuro? (Positivos ou Negativos) Quais?",
         "Relate detalhes sobre traumas ou bloqueios desta Fase 02:"
       ]
     },
     {
       titulo: "Fase o3 – Infância",
       perguntas: [
+        // Relação com os Pais / Criação
         "Você foi criado pelos pais? (Sim ou Não)",
-        "Como é sua relação com seu Pai?",
-        "Como é sua relação com sua Mãe?",
-        "Seus pais foram agressivos com você? (Sim ou Não)",
-        "Qual deles era o mais bravo? (O Pai ou A Mãe)",
-        "Usavam bebidas ou drogas? (Sim ou Não)",
+        "Como é sua relação com seu Pai e com sua Mãe?",
+        "Com qual de seus pais tinha mais dificuldade de relacionamento e qual era o mais bravo? (Pai, Mãe ou Ambos)",
+        "Seus pais foram agressivos com você ou usavam bebidas/drogas? (Sim ou Não)",
+
+        // Dinâmica Conjugal dos Pais e Repetição de Padrões
         "Como você descreveria o relacionamento entre seus pais? (Excelente, Muito Bom, Bom, Regular ou Péssimo) Por quê?",
-        "Quais os aspectos deste relacionamento que se assemelham, ou se repetem em sua vida hoje?",
-        "Quais as características deste relacionamento, que você se mantém determinado/a a não repetir? Por quê?",
-        "Quanto ao relacionamento de seus pais responda: Qual a crença que você adquiriu em relação a relacionamentos?",
-        "Na infância, era obrigado/a a fazer alguma coisa que lhe desagradava? (Sim ou Não)",
-        "Lembra-se de alguma coisa que o magoou muito na Infância? (Sim ou Não)",
-        "Teve perdas familiares ou de amigos na Infância? (Sim ou Não)",
-        "O que te faz sentir tristeza ao relembrar do passado?",
-        "Quando criança tinha medo of que?",
-        "Dormia com a luz acesa ou apagada? (Acesa ou Apagada)",
-        "Como foi sua adolescência? (Ruim, Boa ou Ótima)",
-        "Teve fase de rebeldia na adolescência? (Sim ou Não)",
-        "Com qual de seus pais você tinha mais dificuldade de relacionamento? (Pai, Mãe ou Ambos)",
-        "Qual a Filosofia de sua família em relação ao sucesso profissional?",
-        "Qual a Filosofia de sua família em relação ao dinheiro?",
-        "Qual a Filosofia de sua família em relação ao amor?",
-        "Qual a Filosofia de sua família em relação ao sexo?",
-        "O que era para você, ser um/a bom/boa menino/a? Descreva.",
-        "Como você deveria agir, ou ser para ser amado/a?",
-        "Possui irmãos? (Não ou Sim – Quantos?)",
-        "Como é sua relação com eles?",
+        "Que crenças você adquiriu com o relacionamento dos seus pais, e o que se repete ou você busca não repetir hoje?",
+
+        // Família Ampliada e Socialização na Escola
+        "Possui irmãos? (Não ou Sim – Quantos?) Como é sua relação com eles?",
         "Você foi uma criança introvertida ou extrovertida?",
         "Havia dificuldades de relacionamentos com os colegas do colégio? Se sim, cite-os.",
-        "Quais eram seus maiores medos na infância?",
+
+        // Medos, Perda e Tristeza na Infância
+        "Era obrigado/a a fazer algo desagradável ou lembra-se de algo que o magoou muito/perdas na Infância? (Sim ou Não)",
+        "O que te faz sentir tristeza ao relembrar do passado?",
+        "Quando criança tinha medo de quê e quais eram seus maiores medos?",
+        "Dormia com a luz acesa ou apagada? (Acesa ou Apagada)",
         "Relate algum fato marcante em sua infância",
+
+        // Adolescência
+        "Como foi sua adolescência e se teve fase de rebeldia? (Ruim, Boa ou Ótima)",
+
+        // Filosofia e Tabus no Lar de Origem
+        "Qual a filosofia da sua família em relação ao sucesso profissional e ao dinheiro?",
+        "Qual a filosofia da sua família em relação ao amor e ao sexo?",
+
+        // Modelos de Aprovação / Programas de Merecimento
+        "O que era ser um bom menino/a e como deveria agir para ser amado/a e aceito/a?",
         "Relate detalhes sobre traumas ou bloqueios desta Fase 03 (Infância):"
       ]
     },
     {
       titulo: "Fase o4 – Emocional",
       perguntas: [
-        "Quais são seus maiores medos hoje?",
-        "O que você pensa a seu respeito?",
-        "Como foi o seu primeiro relacionamento amoroso?",
+        // Autopercepção, Valor e Capacidade
+        "O que você pensa a seu respeito e se considera vitorioso/a ou derrotado/a?",
+        "Duvida de sua própria capacidade ou se sente de alguma forma inferior aos outros? (Sim ou Não) Por quê?",
+        "Você é audacioso/a, corre atrás de suas metas, ou é auto-protetor/a? (Audacioso/a ou Auto-protetor/a)",
+
+        // Vítima vs Responsável e Autossabotagem
         "Se você avaliasse sua atuação na vida, qual papel que mais caberia a você hoje? (Vítima ou Responsável)",
-        "Qual o ganho secundário?",
-        "Em quais situações você desempenha o papel de vítima?",
-        "Em quais situações você desempenha o papel de responsável?",
-        "Se considera vitorioso/a ou derrotado/a?",
-        "Nos relacionamentos e na vida, você prefere ser: (Dominante ou Submisso)",
-        "Quem deve ser punido por problemas que ocorrem com você? OU Quem é o culpado por seus problemas pessoais?",
-        "Sente raiva ou rancor de alguém? (Não ou Sim – Quem?)",
+        "Qual o ganho secundário e em quais situações se coloca como vítima ou responsável?",
+
+        // Defesas, Medos e Pressões Existenciais
+        "Quais são seus maiores medos hoje?",
         "Sente-se de alguma forma pressionado/a na atualidade? (Sim ou Não) De que maneira?",
-        "Você se acha uma pessoa controladora? (Sim ou Não)",
-        "Sente-se de alguma forma inferior aos outros? (Sim ou Não) Por quê?",
-        "Duvida de sua própria capacidade? (Sim ou Não)",
-        "Você é audacioso/a, corre atrás de suas metas, ou é auto-protetor/a, preferindo se poupar dos eventuais riscos? (Audacioso/a ou Auto-protetor/a)",
         "Existe algo que o/a faz sentir-se culpado/a? (Sim ou Não) O que exatamente?",
+
+        // Dinâmicas de Relacionamento, Controle e Ressentimento
+        "Como foi o seu primeiro relacionamento amoroso?",
+        "Nos relacionamentos e na vida, você prefere ser: (Dominante ou Submisso) ou se acha uma pessoa controladora?",
+        "Sente raiva ou rancor de alguém? (Não ou Sim – Quem?)",
+        "Quem deve ser punido ou é o real culpado por problemas que ocorrem com você?",
         "Relate detalhes sobre traumas ou bloqueios desta Fase 04:"
       ]
     }
@@ -218,6 +262,12 @@ export default function MentalBlocksDashboard() {
       .slice(0, 5);
   }, [emocional]);
 
+
+
+  const imprimirProtocolo = () => {
+    window.print();
+  };
+
   const enviarWhatsApp = () => {
     let mensagem = `🌸 *ANAMNESE TERAPÊUTICA - MISS. DAIANE* 🌸\n\n`;
 
@@ -228,11 +278,8 @@ export default function MentalBlocksDashboard() {
     mensagem += `*Nome:* ${formData.nome || "Não informado"}\n`;
     mensagem += `*Nascimento:* ${formData.nascimento || "Não informado"}\n`;
     mensagem += `*Estado Civil:* ${formData.estadoCivil || "Não informado"}\n`;
-    mensagem += `*Cidade:* ${formData.cidade || "Não informada"}\n`;
-    mensagem += `*Profissão:* ${formData.profissao || "Não informada"}\n`;
-    mensagem += `*Empresa:* ${formData.empresa || "Não informada"}\n`;
-    mensagem += `*Atividade:* ${formData.atividade || "Não informada"}\n`;
-    mensagem += `*Cargo:* ${formData.cargo || "Não informado"}\n`;
+    mensagem += `*Endereço, Bairro, CEP, Cidade e Estado:* ${formData.endereco || "Não informado"}\n`;
+    mensagem += `*Cargo / Profissão / Empresa / Atividade:* ${formData.profissao || "Não informado"}\n`;
     mensagem += `*Religião:* ${formData.religiao || "Não informada"}\n`;
     mensagem += `*Escolaridade:* ${formData.escolaridade || "Não informada"}\n\n`;
     mensagem += `*Queixa Principal:* ${formData.queixaPrincipal || "Não informada"}\n\n`;
@@ -296,23 +343,220 @@ export default function MentalBlocksDashboard() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="py-16 flex flex-col items-center gap-4 text-center select-none"
+          className="pt-12 pb-8 flex flex-col items-center gap-5 text-center select-none"
         >
-          <div className="flex flex-col items-center">
-            <h1 className="text-[#766255] text-[20px] sm:text-[30px] md:text-[38px] font-extrabold font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] leading-tight max-w-4xl">
+          {/* Logo brand typography - Removed as requested */}
+
+          {/* Protocol title */}
+          <div className="flex flex-col items-center mt-3">
+            <h1 className="text-[#766255] text-[20px] sm:text-[28px] md:text-[34px] font-extrabold font-sans uppercase tracking-[0.16em] sm:tracking-[0.22em] leading-tight max-w-4xl">
               PROTOCOLO DE AVALIAÇÃO
             </h1>
-            <div className="mt-3 inline-block bg-[#EFE5DF] px-5 py-1.5">
-              <span className="text-[#766255] text-[18px] sm:text-[26px] md:text-[32px] font-extrabold font-sans uppercase tracking-[0.22em] block leading-none">
+            <div className="mt-2.5 inline-block bg-[#EFE5DF] px-5 py-1.5">
+              <span className="text-[#766255] text-[16px] sm:text-[22px] md:text-[26px] font-extrabold font-sans uppercase tracking-[0.22em] block leading-none">
                 TERAPÊUTICO
               </span>
             </div>
           </div>
-          <p className="text-[10px] font-semibold tracking-[0.18em] text-[#A08C80] uppercase mt-2">
-            Miss. Daiane • Terapeuta Emocional
-          </p>
-          <div className="w-16 h-[1.5px] bg-[#EAE1D5] mt-6" />
         </motion.div>
+
+
+
+        {/* Therapy Importance Intro Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-[#EAE1D5] shadow-[0_15px_45px_-15px_rgba(118,98,85,0.04)] relative overflow-hidden flex flex-col md:flex-row gap-8 items-center md:items-start"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#FAF0E6] rounded-full filter blur-3xl opacity-50 -mr-10 -mt-10 pointer-events-none" />
+          <div className="p-4 bg-[#B48C7A]/10 rounded-full text-[#B48C7A] shrink-0">
+            <Brain className="w-8 h-8" />
+          </div>
+          <div className="space-y-6 text-center md:text-left w-full font-sans">
+            <div>
+              <span className="px-3 py-1 rounded-full bg-[#B48C7A]/10 text-[#B48C7A] font-sans font-bold text-[9px] uppercase tracking-[0.15em] mb-3 inline-block">
+                Mapeamento e Cuidado Emocional
+              </span>
+              <h3 className="text-[#766255] text-lg sm:text-2xl font-bold uppercase tracking-[0.08em] leading-snug">
+                A Importância da Psicoterapia
+              </h3>
+            </div>
+            
+            <p className="text-[#8C7667] text-sm leading-relaxed max-w-3xl">
+              A <strong>terapia</strong> é importante porque ajuda a pessoa a compreender, reorganizar e aliviar emoções ligadas a traumas, medos, ansiedade, estresse e experiências difíceis da vida.
+            </p>
+            <p className="text-[#8C7667] text-sm leading-relaxed max-w-3xl">
+              Muitas pessoas carregam dores emocionais por anos sem perceber o quanto isso afeta seus pensamentos, relacionamentos, autoestima e até a saúde física. A terapia auxilia no reprocessamento dessas emoções, permitindo que a mente deixe de reagir com tanto sofrimento diante de situações que antes causavam bloqueios, inseguranças ou crises emocionais.
+            </p>
+
+            {/* Divider */}
+            <div className="w-full h-[1px] bg-[#EAE1D5]/60 my-6" />
+
+            {/* Therapeutic Process Results Grid */}
+            <div className="space-y-6 pt-2">
+              <h4 className="text-[#766255] text-sm font-bold uppercase tracking-[0.12em] text-center md:text-left flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#B48C7A]" />
+                Entre os principais benefícios e resultados, destacam-se:
+              </h4>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-left">
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Redução da ansiedade e do estresse emocional;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Melhora da autoestima e da autoconfiança;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Alívio de medos, traumas e lembranças dolorosas;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Mais equilíbrio emocional no dia a dia;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Melhora nos relacionamentos pessoais e familiares;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Sensação de leveza emocional e clareza mental;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Auxílio no controle de pensamentos negativos;
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-1 bg-[#B48C7A]/15 rounded-lg text-[#B48C7A] shrink-0 mt-0.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                  </div>
+                  <span className="text-[#8C7667] text-[13.5px] leading-relaxed font-sans">
+                    Mais disposição para viver, trabalhar e tomar decisões.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="w-full h-[1px] bg-[#EAE1D5]/60 my-2" />
+
+            <div className="space-y-3 pt-1 text-left font-sans">
+              <p className="text-[#8C7667] text-[13.5px] leading-relaxed max-w-3xl">
+                A terapia não apaga o passado, mas ajuda a pessoa a olhar para suas experiências de uma forma mais saudável e menos dolorosa. Muitas pessoas relatam que, após o processo terapêutico, conseguem dormir melhor, sentir mais paz interior e reagir às dificuldades com mais tranquilidade.
+              </p>
+              <p className="text-[#766255] text-[13.5px] font-semibold leading-relaxed max-w-3xl">
+                Cuidar da saúde emocional é tão importante quanto cuidar da saúde física. Quando a mente encontra equilíbrio, a vida se torna mais leve, saudável e produtiva.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+
+
+        {/* Dynamic Peak Blockages Analysis Feed */}
+        {Object.entries(emocional).filter(([_, val]) => val >= 5).length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-[2.5rem] p-8 border border-[#EAE1D5] shadow-[0_15px_40px_-15px_rgba(118,98,85,0.03)] no-print"
+          >
+            <div className="flex items-center gap-3 pb-6 border-b border-[#EAE1D5]/60 mb-6">
+              <div className="p-2.5 bg-[#B48C7A]/10 rounded-xl text-[#B48C7A]">
+                <Target className="w-5 h-5" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-[#766255] text-base font-bold uppercase tracking-[0.08em]">
+                  Mapeador Ativo de Bloqueios de Tensão
+                </h3>
+                <p className="text-[10px] font-sans text-[#8C7667] uppercase tracking-wider font-semibold">
+                  Sinalizadores de atenção com base nos níveis de intensidade que você indicou
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {Object.entries(emocional)
+                .filter(([_, val]) => val >= 5)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4)
+                .map(([nome, valor]) => {
+                  let reflexao = "Indica uma força ou bloqueio em processamento emocional. Útil trazer para a sessão e investigar as origens conjugais ou de criação familiar.";
+                  const uNome = nome.toUpperCase();
+                  if (uNome.includes("RAIVA") || uNome.includes("REVOLTA") || uNome.includes("ÓDIO")) {
+                    reflexao = "Reflete proteção emocional ativa ou inconformidade com limites invadidos no passado. Direcionadora para compreender mágoas da infância.";
+                  } else if (uNome.includes("MEDO") || uNome.includes("ANSIEDADE") || uNome.includes("COVARDIA") || uNome.includes("ANGÚSTIA")) {
+                    reflexao = "Aponta para um estado de alerta crônico do sistema de defesa. Comum em históricos escolares desfavoráveis ou lares com filosofias de cobrança extremas.";
+                  } else if (uNome.includes("CULPA") || uNome.includes("AUTORITARISMO") || uNome.includes("ORGULHO")) {
+                    reflexao = "Indica excessivo senso de responsabilidade ou autocrítica. Relaciona-se com a necessidade precoce de obter aprovação dos pais.";
+                  } else if (uNome.includes("TRISTEZA") || uNome.includes("MÁGOA") || uNome.includes("RESSENTIMENTO") || uNome.includes("SOLIDÃO") || uNome.includes("APATIA")) {
+                    reflexao = "Demonstra sentimentos dolorosos retidos que requerem acolhimento. Excelente ponto de partida para liberar o merecimento e curar cicatrizes do passado.";
+                  } else if (uNome.includes("SUBMISSÃO") || uNome.includes("INDECISÃO")) {
+                    reflexao = "Sinaliza repressão do eu autêntico para agradar e pertencer à família ou parceiros. Trabalhar limites saudáveis no autocuidado.";
+                  } else if (uNome.includes("FRUSTRAÇÃO") || uNome.includes("CANSAÇO")) {
+                    reflexao = "Evidencia sobrecarga física e exaustão emocional acumulada por carregar papéis de vítima ou salvador de ciclos alheios.";
+                  }
+
+                  return (
+                    <div key={nome} className="p-5 rounded-2xl bg-[#FAF6F2]/70 border border-[#EAE1D5]/50 hover:border-[#B48C7A]/20 transition-all text-left">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-sans font-bold text-[11px] text-[#766255] uppercase tracking-wider">
+                          {nome}
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-lg bg-[#B48C7A] text-white font-mono font-bold text-xs">
+                          {valor}/10
+                        </span>
+                      </div>
+                      <p className="text-[#8C7667] text-xs leading-relaxed font-sans mt-1">
+                        {reflexao}
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
+            
+            <p className="text-[10px] text-center text-[#8C7667]/80 italic font-sans mt-5">
+              * Nota clínica: Este mapeamento indica inclinações atuais e serve de bússola para apoiar a Miss Daiane no direcionamento preciso do seu tratamento.
+            </p>
+          </motion.div>
+        )}
 
         {/* Main Content Sections */}
         <div className="space-y-12">
@@ -480,61 +724,28 @@ export default function MentalBlocksDashboard() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="md:col-span-2">
-                <label className="terapia-label">Cidade</label>
+            <div className="grid grid-cols-1 gap-6 mb-8">
+              <div>
+                <label className="terapia-label">Endereço, Bairro, CEP, Cidade e Estado</label>
                 <input
                   type="text"
-                  placeholder="Digite aqui..."
+                  placeholder="Seu endereço completo, bairro, CEP, cidade e estado..."
                   className="terapia-input"
-                  value={formData.cidade}
-                  onChange={(e) => setFormData({ ...formData, cidade: e.target.value })}
+                  value={formData.endereco}
+                  onChange={(e) => setFormData({ ...formData, endereco: e.target.value })}
                 />
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="grid grid-cols-1 gap-6 mb-8">
               <div>
-                <label className="terapia-label">Profissão</label>
+                <label className="terapia-label">Profissão, Empresa, Atividade e Cargo</label>
                 <input
                   type="text"
-                  placeholder="Digite aqui..."
+                  placeholder="Sua profissão, empresa onde trabalha, ramo de atividade e cargo/função..."
                   className="terapia-input"
                   value={formData.profissao}
                   onChange={(e) => setFormData({ ...formData, profissao: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="terapia-label">Empresa</label>
-                <input
-                  type="text"
-                  placeholder="Digite aqui..."
-                  className="terapia-input"
-                  value={formData.empresa}
-                  onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div>
-                <label className="terapia-label">Atividade</label>
-                <input
-                  type="text"
-                  placeholder="Digite aqui..."
-                  className="terapia-input"
-                  value={formData.atividade}
-                  onChange={(e) => setFormData({ ...formData, atividade: e.target.value })}
-                />
-              </div>
-              <div>
-                <label className="terapia-label">Cargo</label>
-                <input
-                  type="text"
-                  placeholder="Digite aqui..."
-                  className="terapia-input"
-                  value={formData.cargo}
-                  onChange={(e) => setFormData({ ...formData, cargo: e.target.value })}
                 />
               </div>
             </div>
@@ -823,19 +1034,9 @@ export default function MentalBlocksDashboard() {
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-8">
               <div className="w-16 h-px bg-[#B48C7A]/25 mx-auto" />
-              
-              <h2 className="text-[#766255] text-3xl md:text-4xl font-display font-medium italic tracking-wide leading-tight">
-                Espaço de Acolhimento
-              </h2>
-
-              <p className="text-[#766255] text-lg md:text-xl leading-relaxed font-normal italic font-serif">
-                “Muitas vezes os traumas silenciosos deixam marcas profundas,
-                mas nenhuma dor define quem você é. <br className="hidden md:block" />
-                Existe cura para aquilo que por anos tentou sobreviver escondido dentro de você.”
-              </p>
 
               <div className="space-y-4">
-                <p className="text-[#654e41] font-sans font-medium text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                <p className="text-[#654e41] font-sans font-medium text-base md:text-lg leading-relaxed max-w-xl mx-auto italic">
                   “Porque sou eu que conheço os planos que tenho para vocês,
                   diz o Senhor, planos de fazê-los prosperar e não de lhes causar dano,
                   planos de dar-lhes esperança e um futuro.”
@@ -870,24 +1071,24 @@ export default function MentalBlocksDashboard() {
                 />
               </div>
 
-              <div className="w-full relative z-10 flex justify-center">
+              <div className="w-full relative z-10 max-w-md">
                 
-                {/* Botão Único: WhatsApp */}
+                {/* Botão: WhatsApp */}
                 <motion.button
                   onClick={enviarWhatsApp}
-                  className="w-full py-5 px-8 sm:px-12 rounded-full bg-[#B48C7A] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wide cursor-pointer flex items-center justify-center gap-3 select-none relative overflow-hidden"
+                  className="w-full py-5 px-6 sm:px-8 rounded-full bg-[#B48C7A] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wide cursor-pointer flex items-center justify-center gap-3 select-none relative overflow-hidden"
                   whileHover={{ 
-                    scale: 1.04,
+                    scale: 1.03,
                     backgroundColor: "#A07865",
                     y: -2,
-                    boxShadow: "0px 18px 36px rgba(160, 120, 101, 0.4)"
+                    boxShadow: "0px 15px 30px rgba(160, 120, 101, 0.35)"
                   }}
                   whileTap={{ scale: 0.97 }}
                   animate={{
                     boxShadow: [
-                      "0px 8px 20px rgba(180, 140, 122, 0.2)",
-                      "0px 15px 35px rgba(180, 140, 122, 0.4)",
-                      "0px 8px 20px rgba(180, 140, 122, 0.2)"
+                      "0px 6px 15px rgba(180, 140, 122, 0.15)",
+                      "0px 12px 28px rgba(180, 140, 122, 0.3)",
+                      "0px 6px 15px rgba(180, 140, 122, 0.15)"
                     ]
                   }}
                   transition={{
@@ -928,12 +1129,12 @@ export default function MentalBlocksDashboard() {
                   >
                     <MessageCircle className="w-5 h-5" strokeWidth={2.5} />
                   </motion.div>
-                  <span className="font-bold tracking-wider text-white">Enviar Resultados no WhatsApp</span>
+                  <span className="font-bold tracking-wider text-white">Enviar no WhatsApp</span>
                 </motion.button>
               </div>
 
-              <p className="text-xs text-[#766255] font-semibold tracking-wide text-center mt-2 max-w-sm">
-                💡 <b>Dica:</b> Ao clicar neste botão, você iniciará o envio das respostas preenchidas diretamente para o WhatsApp da Miss. Daiane.
+              <p className="text-xs text-[#766255] font-semibold tracking-wide text-center mt-2 max-w-lg">
+                💡 <b>Dica:</b> Você pode enviar suas respostas diretamente para o WhatsApp da Miss. Daiane clicando no botão acima.
               </p>
           </div>
         </div>
