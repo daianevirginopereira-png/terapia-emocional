@@ -247,12 +247,14 @@ export default function MentalBlocksDashboard() {
       const respostaBase = respostas[pergunta];
       const detalhe = respostas[pergunta + "_detalhe"];
 
-      if (respostaBase) {
-        mensagem += `*${pergunta}*\n👉 ${respostaBase}`;
-        if (detalhe) {
-          mensagem += ` — ${detalhe}`;
+      if (respostaBase || detalhe) {
+        if (respostaBase && detalhe) {
+          mensagem += `*${pergunta}*\n👉 ${respostaBase} — ${detalhe}\n\n`;
+        } else if (respostaBase) {
+          mensagem += `*${pergunta}*\n👉 ${respostaBase}\n\n`;
+        } else if (detalhe) {
+          mensagem += `*${pergunta}*\n👉 ${detalhe}\n\n`;
         }
-        mensagem += `\n\n`;
       }
     });
 
@@ -650,16 +652,12 @@ export default function MentalBlocksDashboard() {
 
                   const selectedOption = respostas[perguntaOriginal] || "";
 
-                  // Show detail input if there's a detail question, and an option has been chosen
-                  // except we don't demand "Qual" details for a negative "Não" choice (unless the detail contains "por que" or "por quê")
-                  const shouldShowDetailInput = finalDetailQuestion.length > 0 && selectedOption && (
-                    selectedOption.toLowerCase() !== "não" || 
-                    finalDetailQuestion.toLowerCase().includes("por que") || 
-                    finalDetailQuestion.toLowerCase().includes("por quê")
-                  );
+                  // Show detail input always for all option questions
+                  const shouldShowDetailInput = true;
+                  const detailInputLabel = finalDetailQuestion || "Por quê?";
 
                   // Determine if the question should be full width
-                  const isFullWidth = !showOptions || label.length > 60 || finalDetailQuestion.length > 0;
+                  const isFullWidth = !showOptions || label.length > 60 || shouldShowDetailInput;
                   const hasResponse = (respostas[perguntaOriginal] && respostas[perguntaOriginal].trim() !== "") || 
                                      (respostas[perguntaOriginal + "_detalhe"] && respostas[perguntaOriginal + "_detalhe"].trim() !== "");
 
@@ -690,26 +688,24 @@ export default function MentalBlocksDashboard() {
                             })}
                           </div>
 
-                          {shouldShowDetailInput && (
-                            <div className="mt-2">
-                              <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#766255] block mb-2 opacity-95">
-                                {finalDetailQuestion}
-                              </label>
-                              <textarea
-                                rows={2}
-                                placeholder="Sua resposta detalhada..."
-                                value={respostas[perguntaOriginal + "_detalhe"] || ""}
-                                onChange={(e) =>
-                                  setRespostas({
-                                    ...respostas,
-                                    [perguntaOriginal + "_detalhe"]: e.target.value
-                                  })
-                                }
-                                className="terapia-input"
-                                style={{ borderRadius: "20px", resize: "none" }}
-                              />
-                            </div>
-                          )}
+                          <div className="mt-2">
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#766255] block mb-2 opacity-95">
+                              {detailInputLabel}
+                            </label>
+                            <textarea
+                              rows={2}
+                              placeholder="Sua resposta detalhada..."
+                              value={respostas[perguntaOriginal + "_detalhe"] || ""}
+                              onChange={(e) =>
+                                setRespostas({
+                                  ...respostas,
+                                  [perguntaOriginal + "_detalhe"]: e.target.value
+                                })
+                              }
+                              className="terapia-input"
+                              style={{ borderRadius: "20px", resize: "none" }}
+                            />
+                          </div>
                         </div>
                       ) : (
                         <textarea
@@ -828,24 +824,24 @@ export default function MentalBlocksDashboard() {
             <div className="relative z-10 max-w-3xl mx-auto space-y-8">
               <div className="w-16 h-px bg-[#B48C7A]/25 mx-auto" />
               
-              <h2 className="text-[#766255] text-3xl md:text-4xl font-display font-light italic uppercase tracking-wide leading-tight">
+              <h2 className="text-[#766255] text-3xl md:text-4xl font-display font-medium italic tracking-wide leading-tight">
                 Espaço de Acolhimento
               </h2>
 
-              <p className="text-[#766255]/85 text-lg md:text-xl leading-relaxed font-light italic font-serif">
+              <p className="text-[#766255] text-lg md:text-xl leading-relaxed font-normal italic font-serif">
                 “Muitas vezes os traumas silenciosos deixam marcas profundas,
                 mas nenhuma dor define quem você é. <br className="hidden md:block" />
                 Existe cura para aquilo que por anos tentou sobreviver escondido dentro de você.”
               </p>
 
               <div className="space-y-4">
-                <p className="text-[#B48C7A] font-sans font-medium text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                <p className="text-[#654e41] font-sans font-medium text-base md:text-lg leading-relaxed max-w-xl mx-auto">
                   “Porque sou eu que conheço os planos que tenho para vocês,
                   diz o Senhor, planos de fazê-los prosperar e não de lhes causar dano,
                   planos de dar-lhes esperança e um futuro.”
                 </p>
                 
-                <div className="text-[10px] text-[#B48C7A] font-sans font-bold uppercase tracking-wider opacity-60">
+                <div className="text-xs text-[#766255] font-sans font-bold uppercase tracking-wider opacity-90">
                   Jeremias 29:11
                 </div>
               </div>
@@ -936,7 +932,7 @@ export default function MentalBlocksDashboard() {
                 </motion.button>
               </div>
 
-              <p className="text-[10px] text-[#A08C80] font-medium tracking-wide text-center opacity-80 mt-1 max-w-sm">
+              <p className="text-xs text-[#766255] font-semibold tracking-wide text-center mt-2 max-w-sm">
                 💡 <b>Dica:</b> Ao clicar neste botão, você iniciará o envio das respostas preenchidas diretamente para o WhatsApp da Miss. Daiane.
               </p>
           </div>
@@ -946,11 +942,11 @@ export default function MentalBlocksDashboard() {
 
           <footer className="max-w-6xl mx-auto mt-12 pb-16 text-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-12 h-px bg-[#B48C7A]/20" />
-              <p className="text-[9px] md:text-[10px] font-sans font-medium uppercase tracking-[0.15em] text-[#B48C7A]/70">
+              <div className="w-12 h-px bg-[#B48C7A]/40" />
+              <p className="text-[10px] md:text-xs font-sans font-bold uppercase tracking-[0.15em] text-[#766255]">
                 Miss. Daiane • Terapeuta Emocional • Protocolo de Avaliação
               </p>
-              <div className="w-12 h-px bg-[#B48C7A]/20" />
+              <div className="w-12 h-px bg-[#B48C7A]/40" />
             </div>
           </footer>
 
